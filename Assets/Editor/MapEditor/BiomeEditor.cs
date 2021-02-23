@@ -16,13 +16,14 @@ namespace Generator
         {
             _target.BiomeIndex = EditorDataFields.EditorDataField("生物群落索引", _target.BiomeIndex);
             _target.BiomeName = EditorDataFields.EditorDataField("群落名字", _target.BiomeName);
-
+            _target.TerrainTextureLayerIndex = EditorDataFields.EditorDataField("基础贴图索引", _target.TerrainTextureLayerIndex);
             //_target.BaseHigh = EditorGUILayout.Slider("基础高度", _target.BaseHigh, 0, 1);
             EditorGUILayout.MinMaxSlider("高度范围(0-1)", ref _target.MinHigh, ref _target.MaxHigh, 0f, 1f);
 
             _target.Complexity = EditorGUILayout.Slider("地形复杂度", _target.Complexity, 0.1f, Biome.BIOME_MAX_RANGE_TIMES);
             _target.Rarity = EditorGUILayout.Slider("地形遮罩范围", _target.Rarity, 0f, 1f);
             _target.Range = EditorGUILayout.Slider("地形碎裂度（越小代表越地形范围越连贯）", _target.Range, 0.01f, 5f);
+            _target.SubList = EditorDataFields.EditorArrayField("子群落", _target.SubList);
 
             if (GUILayout.Button("打开测试界面"))
             {

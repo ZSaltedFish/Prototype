@@ -1,1 +1,10 @@
 .vsconfig
+Library
+Logs
+Packages
+Temp
+/Prototype.sln
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/.vs/Prototype/v16/.suo
+/obj

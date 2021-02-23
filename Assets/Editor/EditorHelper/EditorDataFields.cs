@@ -189,7 +189,7 @@ namespace EditorHelper
             return EditorDataField("", obj, obj.GetType());
         }
 
-        public static object RunArray(string desc, object data, Type arrType)
+        private static object RunArray(string desc, object data, Type arrType)
         {
             Type type = arrType.GetElementType();
             if (data == null)
@@ -203,6 +203,31 @@ namespace EditorHelper
                 if (index != arr.Length)
                 {
                     arr = Array.CreateInstance(type, index);
+                }
+
+                for (int i = 0; i < arr.Length; ++i)
+                {
+                    arr.SetValue(EditorDataField($"索引{i}", arr.GetValue(i), type), i);
+                }
+            }
+            return arr;
+        }
+
+        public static T[] EditorArrayField<T>(string desc, T[] data)
+        {
+            Type type = typeof(T);
+            if (data == null)
+            {
+                data = Array.CreateInstance(type, 0) as T[];
+            }
+            T[] arr = data;
+            using (new EditorVerticalLayout(EditorStyles.helpBox))
+            {
+                int index = EditorGUILayout.IntField(desc, arr.Length);
+                index = Mathf.Max(0, index);
+                if (index != arr.Length)
+                {
+                    arr = Array.CreateInstance(type, index) as T[];
                 }
 
                 for (int i = 0; i < arr.Length; ++i)
