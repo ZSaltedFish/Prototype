@@ -19,10 +19,16 @@ namespace Generator
         private Vector2 _maskOffset;
         private Vector3 _centerOffset;
         private int _alphaMapCount;
+
+        private TerrainGenerator _terrainGenerator;
         public void Start()
         {
-            InitAlphaTexture();
-            Init();
+            _terrainGenerator = new TerrainGenerator(DefaultTerrainData, transform.GetChild(0).gameObject,
+                TerrainWidth, TerrainHeight);
+
+            StartCoroutine(_terrainGenerator.UpgradeTerrain(Biomes, CenterUnit.transform.position));
+            //InitAlphaTexture();
+            //Init();
         }
 
         private void InitAlphaTexture()
@@ -123,10 +129,6 @@ namespace Generator
                     alphaData = subTerrainTexutreLayerIndex;
                     fixPoint = Mathf.Lerp(parentValue, subFixPerlinValue, maskLerp);
                 }
-                else
-                {
-                    int asb = 1;
-                }
             }
             return fixPoint;
         }
@@ -148,12 +150,13 @@ namespace Generator
 
         public void OnDestroy()
         {
-            foreach (Terrain terrain in Terrains)
-            {
-                TerrainData data = terrain.terrainData;
-                terrain.terrainData = DefaultTerrainData;
-                Destroy(data);
-            }
+            //foreach (Terrain terrain in Terrains)
+            //{
+            //    TerrainData data = terrain.terrainData;
+            //    terrain.terrainData = DefaultTerrainData;
+            //    Destroy(data);
+            //}
+            _terrainGenerator.Dispose();
         }
 
         private Vector2 FromPos2PerlinPoint(Vector3 worldPoint, float scale)
@@ -172,9 +175,10 @@ namespace Generator
             if (_curTimeDelta > MaxTimeDelta)
             {
                 _curTimeDelta = 0;
-                Vector2Int curInt = GetCurrentUnitTerrain();
-                Debug.Log($"当前位置:{curInt}");
-                StartCoroutine("UpgradeTerrain", curInt);
+                //Vector2Int curInt = GetCurrentUnitTerrain();
+                //Debug.Log($"当前位置:{curInt}");
+                //StartCoroutine("UpgradeTerrain", curInt);
+                StartCoroutine(_terrainGenerator.UpgradeTerrain(Biomes, CenterUnit.transform.position));
             }
             else
             {
