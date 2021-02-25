@@ -132,10 +132,6 @@ namespace EditorHelper
         [EditorDataField(typeof(UnityEngine.Object), null)]
         private static object ObjectField(string desc, object data, Type type)
         {
-            if (data == null)
-            {
-                return EditorGUILayout.ObjectField(desc, null, type, true);
-            }
             UnityEngine.Object obj = null;
             try
             {
@@ -236,6 +232,68 @@ namespace EditorHelper
                 }
             }
             return arr;
+        }
+
+        public static Dictionary<TKey, TValue> EditorDictionaryField<TKey, TValue>(string desc, Dictionary<TKey, TValue> dict, ref TKey controlKey)
+        {
+            if (dict == null)
+            {
+                dict = new Dictionary<TKey, TValue>();
+            }
+
+            int deleteIndex = -1;
+            int count = 0;
+            using (new EditorVerticalLayout(EditorStyles.helpBox))
+            {
+                EditorGUILayout.LabelField(desc);
+                List<TKey> keys = new List<TKey>(dict.Keys);
+                foreach (var item in keys)
+                {
+                    using (new EditorHorizontalLayout("Button"))
+                    {
+                        EditorGUILayout.TextField(item.ToString());
+                        TValue value = dict[item];
+                        value = EditorDataField(value);
+                        dict[item] = value;
+
+                        if (GUILayout.Button("x"))
+                        {
+                            deleteIndex = count;
+                        }
+                        ++count;
+                    }
+                }
+
+                if (deleteIndex != -1)
+                {
+                    dict.Remove(keys[deleteIndex]);
+                }
+
+                using (new EditorVerticalLayout(EditorStyles.helpBox))
+                {
+                    using (new EditorHorizontalLayout("Button"))
+                    {
+                        controlKey = EditorDataField(controlKey);
+                        try
+                        {
+                            if (GUILayout.Button("新建"))
+                            {
+                                dict.Add(controlKey, default);
+                            }
+
+                            if (GUILayout.Button("删除"))
+                            {
+                                dict.Remove(controlKey);
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            Debug.LogError($"对Key({controlKey})的操作失败\t{err}");
+                        }
+                    }
+                }
+            }
+            return dict;
         }
 
         public static object EditorDataField(string desc, object data, Type type)

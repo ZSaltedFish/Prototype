@@ -9,7 +9,7 @@ namespace Generator
 {
     public class TerrainGenerator : IDisposable
     {
-        public const int UPDATE_COUNT = 22000;
+        public const int UPDATE_COUNT = 22001;
         public const float VIEW_DIST = 1000;
         public const string CLONE_TERRAIN_NAME = "TerrainDefaultClone";
         public readonly TerrainData DefaultTerrainData;
@@ -121,6 +121,14 @@ namespace Generator
         private Vector3 TerrainIndex2WorldPoint(Vector2Int terrainIndex)
         {
             return new Vector3(_width * terrainIndex.x, 0, _height * terrainIndex.y);
+        }
+
+        private bool OutoffRange(Vector2Int index1, Vector2Int index2)
+        {
+            float xDist = Mathf.Abs(index1.x - index2.x) * _width;
+            float yDist = Mathf.Abs(index1.y - index2.y) * _height;
+
+            return xDist * xDist + yDist * yDist > VIEW_DIST * VIEW_DIST;
         }
         #endregion
 
@@ -248,14 +256,6 @@ namespace Generator
                     _terrainGrid.Remove(index);
                 }
             }
-        }
-
-        private bool OutoffRange(Vector2Int index1, Vector2Int index2)
-        {
-            float xDist = Mathf.Abs(index1.x - index2.x) * _width;
-            float yDist = Mathf.Abs(index1.y - index2.y) * _height;
-
-            return xDist * xDist + yDist * yDist > VIEW_DIST * VIEW_DIST;
         }
     }
 }

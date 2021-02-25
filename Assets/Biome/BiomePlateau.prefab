@@ -40,16 +40,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2176775003348880757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982a73f024274cc4eb7a67111bcd945a, type: 3}
+  m_Script: {fileID: 11500000, guid: aa652e7f14f3ee74faa68e34ceeca49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainTextureLayerIndex: 2
-  BiomeIndex: 2
-  BiomeName: Plateau
+  TerrainTextureLayerIndex: 0
+  BiomeIndex: 0
+  BiomeName: 
   BaseHigh: 0
-  MinHigh: 0.49120468
-  MaxHigh: 0.55594254
-  Complexity: 0.43
-  Rarity: 0.609
-  Range: 0.01
+  MinHigh: 0.4799738
+  MaxHigh: 0.52242047
+  Complexity: 2.46
+  Rarity: 0.601
+  Range: 2.12
   SubList: []

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Generator;
+using UnityEngine;
 
 namespace Control
 {
@@ -51,6 +52,11 @@ namespace Control
             euler.z = 0;
             transform.eulerAngles = euler;
             CastUpdate();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                TempCreate();
+            }
         }
 
         public void CastUpdate()
@@ -59,6 +65,19 @@ namespace Control
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 transform.position = hit.point + Vector3.up * 0.5f;
+            }
+        }
+
+        private void TempCreate()
+        {
+            Ray ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 pos = hit.point;
+                if (Vector3.Distance(pos, transform.position) < 3f)
+                {
+                    SaveableObjectManager.INSTANCE.CreateObj("TestCharactor", pos);
+                }
             }
         }
     }

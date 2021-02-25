@@ -1,8 +1,9 @@
 ﻿using EditorHelper;
+using Generator;
 using UnityEditor;
 using UnityEngine;
 
-namespace Generator
+namespace GameEditor
 {
     [CustomEditor(typeof(Biome))]
     public class BiomeEditor : Editor
@@ -14,7 +15,7 @@ namespace Generator
         }
         public override void OnInspectorGUI()
         {
-            _target.BiomeIndex = EditorDataFields.EditorDataField("生物群落索引", _target.BiomeIndex);
+            //_target.BiomeIndex = EditorDataFields.EditorDataField("生物群落索引", _target.BiomeIndex);
             _target.BiomeName = EditorDataFields.EditorDataField("群落名字", _target.BiomeName);
             _target.TerrainTextureLayerIndex = EditorDataFields.EditorDataField("基础贴图索引", _target.TerrainTextureLayerIndex);
             //_target.BaseHigh = EditorGUILayout.Slider("基础高度", _target.BaseHigh, 0, 1);
@@ -30,6 +31,11 @@ namespace Generator
                 BiomeTestWindow window = EditorWindow.GetWindow<BiomeTestWindow>();
                 window.Biome = _target;
                 window.Show();
+            }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(_target);
             }
         }
     }

@@ -40,17 +40,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5201585069013032239}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982a73f024274cc4eb7a67111bcd945a, type: 3}
+  m_Script: {fileID: 11500000, guid: aa652e7f14f3ee74faa68e34ceeca49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TerrainTextureLayerIndex: 1
   BiomeIndex: 0
-  BiomeName: Plain
+  BiomeName: 
   BaseHigh: 0
-  MinHigh: 0.13387021
-  MaxHigh: 0.15150718
-  Complexity: 1.12
+  MinHigh: 0.1567261
+  MaxHigh: 0.2024379
+  Complexity: 1.67
   Rarity: 0
-  Range: 0.51
+  Range: 0.01
   SubList:
   - {fileID: 2176775003348880759, guid: 45e70f3808bef404a96034983258622d, type: 3}

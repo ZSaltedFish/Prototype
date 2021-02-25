@@ -40,16 +40,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2176775003348880757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982a73f024274cc4eb7a67111bcd945a, type: 3}
+  m_Script: {fileID: 11500000, guid: aa652e7f14f3ee74faa68e34ceeca49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainTextureLayerIndex: 0
-  BiomeIndex: 1
-  BiomeName: Mountains
+  TerrainTextureLayerIndex: 2
+  BiomeIndex: 0
+  BiomeName: "\u5C71\u8109"
   BaseHigh: 0
-  MinHigh: 0.50099945
+  MinHigh: 0.46364814
   MaxHigh: 1
-  Complexity: 2.69
-  Rarity: 0.692
-  Range: 0.5
-  SubList: []
+  Complexity: 1.95
+  Rarity: 0.601
+  Range: 2.85
+  SubList:
+  - {fileID: 2176775003348880759, guid: 45e70f3808bef404a96034983258622d, type: 3}
