@@ -1,7 +1,6 @@
 ﻿using Entitys;
-using System;
+using GameToolComponents;
 using System.Collections.Generic;
-using System.Text;
 using Tools;
 using UnityEngine;
 
@@ -11,28 +10,19 @@ namespace Generator
     /// 可储存区域
     /// </summary>
     [SerializeField]
-    public class SaveableArea
+    public class SaveableArea : DynamicArea
     {
-        public Vector2Int AreaIndex;
-        public int Width, Height;
         public List<SaveableObject> SaveList;
 
-        public const string PATTERN_TITLE = "|SAVEABLE_DATA_INDEX|";
         public const string SAVEABLE_AREA_NAME_TITLE = "SaveableAreaName";
 
         private byte[] _preLoadData;
 
-        public SaveableArea(Vector2Int wIndex)
+        public SaveableArea(float width, float height, Vector2Int wIndex) : base(width, height, wIndex)
         {
-            AreaIndex = wIndex;
         }
 
-        private string GetFileName()
-        {
-            return $"{Application.dataPath}/{SAVEABLE_AREA_NAME_TITLE}_{AreaIndex.x}_{AreaIndex.y}.save";
-        }
-
-        public Dictionary<string, List<byte[]>> Load()
+        private Dictionary<string, List<byte[]>> Load()
         {
             Dictionary<string, List<byte[]>> dict = new Dictionary<string, List<byte[]>>();
             if (_preLoadData == null || _preLoadData.Length == 0)
@@ -57,7 +47,7 @@ namespace Generator
             return dict;
         }
 
-        public void Save(List<GameObject> unloadObjects)
+        private void Save(List<GameObject> unloadObjects)
         {
             BytesIO writer = new BytesIO();
             writer.Set(unloadObjects.Count);
@@ -71,6 +61,39 @@ namespace Generator
             Debug.Log($"保存地块包含{unloadObjects.Count}个单位");
 
             _preLoadData = writer.ToBytes();
+        }
+
+        public override void OnAreaLoad()
+        {
+            Dictionary<string, List<byte[]>> loads = Load();
+            foreach (string name in loads.Keys)
+            {
+                foreach (byte[] item in loads[name])
+                {
+                    SaveableObjectManager.INSTANCE.CreateObj(name, item);
+                }
+            }
+        }
+
+        public override void OnAreaUnload()
+        {
+            List<int> ids = SaveableObjectManager.INSTANCE.GetIds();
+            List<GameObject> unloadObjects = new List<GameObject>();
+            foreach (int id in ids)
+            {
+                GameObject go = SaveableObjectManager.INSTANCE.Get(id);
+                if (WorldPoint2Index(go.transform.position) == Index)
+                {
+                    unloadObjects.Add(go);
+                    SaveableObjectManager.INSTANCE.Remove(go);
+                }
+            }
+            Save(unloadObjects);
+        }
+
+        public override void OnAreaRelease()
+        {
+            //保存区域到文件
         }
     }
 }

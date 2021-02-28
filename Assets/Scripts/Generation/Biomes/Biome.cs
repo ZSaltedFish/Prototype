@@ -20,5 +20,8 @@ namespace Generator
         public float Rarity;
         public float Range;
         public Biome[] SubList;
+
+        public GameObject[] Trees;
+        public float TreeThreshold;
     }
 }

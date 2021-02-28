@@ -43,13 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa652e7f14f3ee74faa68e34ceeca49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainTextureLayerIndex: 0
-  BiomeIndex: 0
+  TerrainTextureLayerIndex: 3
+  BiomeIndex: 2
   BiomeName: 
   BaseHigh: 0
-  MinHigh: 0.4799738
-  MaxHigh: 0.52242047
-  Complexity: 2.46
-  Rarity: 0.601
-  Range: 2.12
+  MinHigh: 0.45058763
+  MaxHigh: 0.48976928
+  Complexity: 1.05
+  Rarity: 0.451
+  Range: 0.51
   SubList: []
+  Trees:
+  - {fileID: 7229310536941447456, guid: c45a2d88a050e0b4eb83068884e3f05a, type: 3}
+  TreeThreshold: 0

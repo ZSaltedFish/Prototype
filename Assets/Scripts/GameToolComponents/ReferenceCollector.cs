@@ -20,6 +20,16 @@ namespace GameToolComponents
             }
         }
 
+        public List<T> GetAll<T>() where T : Object
+        {
+            List<T> list = new List<T>();
+            foreach (T item in _ref.Values)
+            {
+                list.Add(item);
+            }
+            return list;
+        }
+
         public List<StringObjectPair> RefList;
 
         private Dictionary<string, Object> _ref = new Dictionary<string, Object>();

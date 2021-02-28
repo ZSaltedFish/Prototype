@@ -70,6 +70,43 @@ namespace Tools
             return v;
         }
 
+        public Vector2 GetVector2()
+        {
+            Vector2 v = new Vector2(GetSingle(), GetSingle());
+            return v;
+        }
+
+        public Vector2Int GetVector2Int()
+        {
+            Vector2Int v = new Vector2Int(GetInt32(), GetInt32());
+            return v;
+        }
+
+        public double GetDouble()
+        {
+            double v = BitConverter.ToDouble(_byteArray, Seed);
+            Seed += 8;
+            return v;
+        }
+
+        public BytesIO Set(double d)
+        {
+            _bytes.AddRange(BitConverter.GetBytes(d));
+            return this;
+        }
+
+        public BytesIO Set(Vector2Int v)
+        {
+            Set(v.x).Set(v.y);
+            return this;
+        }
+
+        public BytesIO Set(Vector2 v)
+        {
+            Set(v.x).Set(v.y);
+            return this;
+        }
+
         public BytesIO Set(Vector3 v)
         {
             Set(v.x).Set(v.y).Set(v.z);

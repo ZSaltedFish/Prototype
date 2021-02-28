@@ -54,3 +54,6 @@ MonoBehaviour:
   Range: 0.01
   SubList:
   - {fileID: 2176775003348880759, guid: 45e70f3808bef404a96034983258622d, type: 3}
+  Trees:
+  - {fileID: 7229310536941447456, guid: c45a2d88a050e0b4eb83068884e3f05a, type: 3}
+  TreeThreshold: 0.2

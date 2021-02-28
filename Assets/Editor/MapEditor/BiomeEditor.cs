@@ -26,6 +26,12 @@ namespace GameEditor
             _target.Range = EditorGUILayout.Slider("地形碎裂度（越小代表越地形范围越连贯）", _target.Range, 0.01f, 5f);
             _target.SubList = EditorDataFields.EditorArrayField("子群落", _target.SubList);
 
+            using (new EditorVerticalLayout("Button"))
+            {
+                _target.TreeThreshold = EditorGUILayout.Slider("树阈值", _target.TreeThreshold, 0f, 1f);
+                _target.Trees = EditorDataFields.EditorArrayField("树类型", _target.Trees);
+            }
+
             if (GUILayout.Button("打开测试界面"))
             {
                 BiomeTestWindow window = EditorWindow.GetWindow<BiomeTestWindow>();

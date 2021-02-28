@@ -8,6 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace GameEditor
 {
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(ReferenceCollector))]
     public class ReferenceCollectorEditor : Editor
     {
