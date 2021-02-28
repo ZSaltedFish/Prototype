@@ -1,31 +1,32 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 namespace EffectBehaviour
 {
     public class Delay : MonoBehaviour
     {
-        public float DelayTime = 1f;
 
-        public ParticleSystem SrcParticleSystem;
+        public float DelayTime = 1.0f;
 
-        public void Start()
+
+        void OnDisable()
         {
-            if (SrcParticleSystem != null)
-            {
-                var emission = SrcParticleSystem.emission;
-                emission.enabled = false;
-            }
-            StartCoroutine(DelayFunc());
+            _takeEffect = false;
         }
-
-        private IEnumerator DelayFunc()
+        void DelayFunc()
         {
-            yield return new WaitForSeconds(DelayTime);
-            if (SrcParticleSystem != null)
+
+            gameObject.SetActive(true);
+
+        }
+        private bool _takeEffect = false;
+        public void Update()
+        {
+            if (!_takeEffect)
             {
-                var emission = SrcParticleSystem.emission;
-                emission.enabled = true;
+                Invoke("DelayFunc", DelayTime);
+                gameObject.SetActive(false);
+                _takeEffect = true;
             }
         }
     }

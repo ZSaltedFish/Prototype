@@ -20,6 +20,11 @@ namespace Control
             {
                 SrcAnim.SetTrigger("Attack");
             }
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                SrcAnim.SetTrigger("HaverAttack");
+            }
         }
         public void OnAttackBegin()
         {

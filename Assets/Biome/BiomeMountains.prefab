@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TerrainTextureLayerIndex: 0
-  BiomeIndex: 0
+  BiomeIndex: 1
   BiomeName: "\u5C71\u8109"
   BaseHigh: 0
   MinHigh: 0.46364814
@@ -54,5 +54,5 @@ MonoBehaviour:
   Range: 2.85
   SubList: []
   Trees:
-  - {fileID: 7229310536941447456, guid: c45a2d88a050e0b4eb83068884e3f05a, type: 3}
+  - {fileID: 4106908266982366096, guid: 4f7bfaabdd3b88a46b2dbc46bbb72b43, type: 3}
   TreeThreshold: 0.1

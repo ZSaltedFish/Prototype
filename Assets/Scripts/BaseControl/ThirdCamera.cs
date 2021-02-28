@@ -11,6 +11,8 @@ namespace Control
         public float Speed = 5f;
         public float CameraSpeed = 3f;
         public float RotateSpeed = 60f;
+        public float JumpSpeed = 8f;
+        public float Gravity = -9.8f;
 
         private Vector3 _chacatorRotateAngle;
 
@@ -65,30 +67,35 @@ namespace Control
             transform.eulerAngles = euler;
         }
 
+        private float _ySpeed = 0;
         private void Move()
         {
+            CharacterController controller = LockUpObject.GetComponent<CharacterController>();
             Vector3 dire = Vector3.zero;
-            if (Input.GetButton("Vertical"))
+            Vector3 forward = transform.forward;
+            forward.y = 0;
+            dire += forward.normalized * Input.GetAxisRaw("Vertical");
+            Vector3 right = transform.right;
+            dire += right * Input.GetAxisRaw("Horizontal");
+
+            Vector3 normailzedDire = dire.normalized;
+            _chacatorRotateAngle = normailzedDire;
+            Vector3 speedDire = normailzedDire * Time.deltaTime * Speed;
+
+            if (controller.isGrounded)
             {
-                Vector3 forward = transform.forward;
-                forward.y = 0;
-                dire += forward.normalized * Input.GetAxisRaw("Vertical");
+                if (Input.GetButtonDown("Jump"))
+                {
+                    _ySpeed = JumpSpeed;
+                }
+            }
+            else
+            {
+                _ySpeed += Gravity * Time.deltaTime;
             }
 
-            if (Input.GetButton("Horizontal"))
-            {
-                Vector3 right = transform.right;
-                dire += right * Input.GetAxisRaw("Horizontal");
-            }
-
-            if (dire.magnitude > 0.0001f)
-            {
-                Vector3 normailzedDire = dire.normalized;
-                _chacatorRotateAngle = normailzedDire;
-                Vector3 speedDire = normailzedDire * Time.deltaTime * Speed;
-                LockUpObject.GetComponent<Rigidbody>().MovePosition(LockUpObject.transform.position + speedDire);
-                //_chacatorRotateAngle = LockUpObject.transform.forward;
-            }
+            speedDire.y = _ySpeed * Time.deltaTime;
+            controller.Move(speedDire);
         }
 
         private float XAdjust(float x)

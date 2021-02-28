@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Pub_Alice_body_hold2 butterfly_7
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 3d5dc91015ddec84c9b3a6e0c573796b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Diff
+        second:
+          m_Texture: {fileID: 2800000, guid: 3d5dc91015ddec84c9b3a6e0c573796b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Sp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Nol
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _FaGuang
+        second:
+          m_Texture: {fileID: 2800000, guid: 459efc0ad136a1e4eb5dcee3a3500f5d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _node_101
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DissolveSrc
+        second:
+          m_Texture: {fileID: 2800000, guid: eafb45cc658bccc429f3058c80f72091, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
+          name: _InvFade
+        second: 1
+      data:
+        first:
+          name: _InnerColorPower
+        second: .625
+      data:
+        first:
+          name: _RimPower
+        second: 4.10714293
+      data:
+        first:
+          name: _AlphaPower
+        second: 8
+      data:
+        first:
+          name: _AllPower
+        second: 6.35714293
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .588235319, g: .588235319, b: .588235319, a: 1}
+      data:
+        first:
+          name: _AlphaMainColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _TintColor
+        second: {r: .411764681, g: .12716265, b: .39213711, a: .56078434}
+      data:
+        first:
+          name: _RimColor
+        second: {r: .294773698, g: .0129757915, b: .882352948, a: .501960814}
+      data:
+        first:
+          name: _InnerColor
+        second: {r: .00508218491, g: .577615976, b: .691176474, a: .501960814}

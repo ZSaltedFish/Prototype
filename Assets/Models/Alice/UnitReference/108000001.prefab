@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &143154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 489052}
+  - 114: {fileID: 11481458}
+  m_Layer: 0
+  m_Name: 108000001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489052
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11481458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c56eaee2694a2947ac12b08aa1526ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCopyRight: 0
+  Configs:
+  - ID: 108000001
+    UnitType: 104
+    unitSubType: 0
+    SmallMapIconType: 0
+    Desc: "\u6536\u96C6\u7259\u9F7F\u5B8C\u6210"
+    LifeTime: 1500
+    BindPoint: AttackPoint
+    BindPath: 
+    AreaShow: 1
+    EffectPlayingTime: 
+    UnitRadius: 0
+    UnitHeight: 0
+    DieDelay: 3000
+    RemoveEventGo: {fileID: 0}
+    AddEventGo: {fileID: 0}
+    UpdateEventGo: {fileID: 174612, guid: 6caa76d82f2a16d4db5bf7bab3e4cf2c, type: 2}
+    UnitHitedGo: {fileID: 0}
+    clickTreeGo: {fileID: 0}
+    MouseRightClickGo: {fileID: 0}
+    UnitModifyActorGo: {fileID: 0}
+    isShowLifeBar: 1
+    ReferenceGameObject: {fileID: 100002, guid: 5b19fc750211fd042bcc3268cd43bbf5,
+      type: 2}
+    SoundCollector: {fileID: 0}
+    OutLineDisable: 0
+    FowDisable: 0
+    CanBeCutted: 0
+    HasPool: 0
+    AdvancedPool: 0
+    UpdateType: 
+  ShowType: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 143154}
+  m_IsPrefabParent: 1

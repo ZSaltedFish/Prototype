@@ -23,9 +23,9 @@ namespace Control
         public void CastUpdate()
         {
             Ray ray = new Ray(transform.position + Vector3.up * 1000, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1 << 8))
             {
-                transform.position = hit.point + Vector3.up * 0.5f;
+                transform.position = hit.point;
             }
         }
     }
