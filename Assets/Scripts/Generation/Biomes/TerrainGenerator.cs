@@ -32,8 +32,15 @@ namespace Generator
             _srcTerrain = srcTerrain;
             _srcTerrain.SetActive(false);
             _biomes = biomes;
+
+            OnUpdateFinished = OnUpdateOver;
         }
         #region 初始化
+        private void OnUpdateOver()
+        {
+            GameEventSystem.ThrowEvent(GameEventType.TerrainUpdateFinished, new GameEventParam()
+                .Add(GameEventFlag.Terrain_update_location, ActorManager.GetPlayerLocation()));
+        }
 
         private void InitAlphaTexture()
         {
@@ -56,6 +63,19 @@ namespace Generator
             };
             ++_count;
             return data;
+        }
+
+        public bool TryGetHigh(Vector3 pos, out float high)
+        {
+            high = 0;
+            Vector2Int index = WorldPoint2AreaIndex(pos);
+            if (!LoadingArea.TryGetValue(index, out TerrainArea area))
+            {
+                return false;
+            }
+
+            high = area.GetHigh(pos);
+            return true;
         }
 
         public Biome GetBiomeSpecifiedLocation(Vector3 wp)

@@ -14,7 +14,6 @@ namespace Generator
         public int TerrainWidth, TerrainHeight;
         public GameObject DefaultTerrain;
         public TerrainData DefaultTerrainData;
-        public GameObject CenterUnit;
         private TerrainGenerator _terrainGenerator;
         public void Awake()
         {
@@ -31,9 +30,7 @@ namespace Generator
         {
             _terrainGenerator = new TerrainGenerator(DefaultTerrainData, DefaultTerrain,
                 TerrainWidth, TerrainHeight, Biomes);
-            StartCoroutine(_terrainGenerator.UpdateEnum(CenterUnit.transform.position));
-
-            TreeGenerator.INSTANCE.Run();
+            StartCoroutine(_terrainGenerator.UpdateEnum(Vector3.zero));
         }
 
         private void InitBiomes()
@@ -57,7 +54,7 @@ namespace Generator
             if (_curTimeDelta > MaxTimeDelta)
             {
                 _curTimeDelta = 0;
-                StartCoroutine(_terrainGenerator.UpdateEnum(CenterUnit.transform.position));
+                StartCoroutine(_terrainGenerator.UpdateEnum(ActorManager.GetPlayerLocation()));
             }
             else
             {
@@ -68,6 +65,11 @@ namespace Generator
         public Biome GetBiomeSpecifiedLocation(Vector3 pos)
         {
             return _terrainGenerator.GetBiomeSpecifiedLocation(pos);
+        }
+
+        public bool TryGetHigh(Vector3 pos, out float high)
+        {
+            return _terrainGenerator.TryGetHigh(pos, out high);
         }
     }
 }

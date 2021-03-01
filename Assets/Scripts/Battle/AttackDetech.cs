@@ -11,7 +11,7 @@ namespace Control
 
         public void Start()
         {
-            SrcAnim = GetComponent<Animator>();
+            SrcAnim = GetComponentInParent<Animator>();
         }
 
         public void Update()
@@ -29,14 +29,12 @@ namespace Control
         public void OnAttackBegin()
         {
             Debug.Log($"开始攻击");
-            Weapon.enabled = true;
             _attackBegin = true;
         }
 
         public void OnAttackEnd()
         {
             Debug.Log($"结束攻击");
-            Weapon.enabled = false;
             _attackBegin = false;
         }
 

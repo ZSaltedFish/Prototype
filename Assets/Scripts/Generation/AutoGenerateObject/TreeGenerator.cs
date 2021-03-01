@@ -16,7 +16,6 @@ namespace Generator
         private Dictionary<string, ObjectPoolPattern<GameObject>> _objTreePools;
         private Dictionary<int, GameObject> _activityTrees = new Dictionary<int, GameObject>();
         private TreeAreaManager _manager;
-        private float _detialTime = 0;
 
         private int _max = 500;
 
@@ -30,6 +29,26 @@ namespace Generator
             _objTreePools = new Dictionary<string, ObjectPoolPattern<GameObject>>();
         }
 
+        public void Start()
+        {
+            _manager = new TreeAreaManager(Width, Height, Range)
+            {
+                Size = DetialSize
+            };
+            GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
+        }
+
+        public void OnDestroy()
+        {
+            GameEventSystem.Unregister(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
+        }
+
+        private void OnTerrainFishished(GameEventParam obj)
+        {
+            Debug.Log($"更新树，现有{_activityTrees.Count}棵树");
+            StartCoroutine(_manager.UpdateEnum(obj.Get<Vector3>(GameEventFlag.Terrain_update_location)));
+        }
+
         public void Run()
         {
             _manager = new TreeAreaManager(Width, Height, Range)
@@ -40,22 +59,12 @@ namespace Generator
             StartCoroutine(_manager.UpdateEnum(CenterObj.transform.position));
         }
 
-        public void Update()
-        {
-            if (_detialTime > UpdateTime)
-            {
-                Debug.Log($"更新树，现有{_activityTrees.Count}棵树");
-                _detialTime = 0;
-                StartCoroutine(_manager.UpdateEnum(CenterObj.transform.position));
-            }
-            else
-            {
-                _detialTime += Time.deltaTime;
-            }
-        }
-
         public void Generate(Vector3 worldPoint, System.Random rad)
         {
+            if (BiomeGenerator.INSTANCE.TryGetHigh(worldPoint, out float high))
+            {
+                worldPoint.y = high;
+            }
             Biome curBiome = BiomeGenerator.INSTANCE.GetBiomeSpecifiedLocation(worldPoint);
             if (curBiome.Trees.Length == 0 || _activityTrees.Count > _max || IsBlocked(worldPoint))
             {

@@ -13,8 +13,10 @@ namespace GameToolComponents
         /// 对象池模式
         /// </summary>
         public bool ObjectPoolMode = false;
-        public Dictionary<Vector2Int, T> UnloadArea = new Dictionary<Vector2Int, T>();
-        public Dictionary<Vector2Int, T> LoadingArea = new Dictionary<Vector2Int, T>();
+        protected Dictionary<Vector2Int, T> UnloadArea = new Dictionary<Vector2Int, T>();
+        protected Dictionary<Vector2Int, T> LoadingArea = new Dictionary<Vector2Int, T>();
+
+        public Action OnUpdateFinished;
 
         private ObjectPoolPattern<T> _usingPool;
         public DynamicAreaController(float width, float height, float maxRange)
@@ -39,7 +41,7 @@ namespace GameToolComponents
             return xDist * xDist + yDist * yDist > MaxRange * MaxRange;
         }
 
-        private Vector2Int WorldPoint2AreaIndex(Vector3 worldPoint)
+        public Vector2Int WorldPoint2AreaIndex(Vector3 worldPoint)
         {
             int xCount = (int)(worldPoint.x / Width) - (worldPoint.x < 0 ? 1 : 0);
             int yCount = (int)(worldPoint.z / Height) - (worldPoint.z < 0 ? 1 : 0);
@@ -107,6 +109,8 @@ namespace GameToolComponents
                     }
                 }
             }
+
+            OnUpdateFinished?.Invoke();
         }
 
         protected abstract T OnCreate(Vector2Int wIndex);
@@ -170,6 +174,7 @@ namespace GameToolComponents
                     }
                 }
             }
+            OnUpdateFinished?.Invoke();
         }
 
         public Vector3 AreaIndex2WorldPoint(Vector2Int wIndex)

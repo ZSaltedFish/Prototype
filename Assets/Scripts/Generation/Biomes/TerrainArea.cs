@@ -16,7 +16,6 @@ namespace Generator
             public Vector2 MaskOffset;
 
             private int _size;
-            private int[,] _mapRecord;
             public TerrainArea(int count, GameObject terrainGo, TerrainData data, float width, float height, Vector2Int index) 
                 : base(width, height, index)
             {
@@ -42,7 +41,6 @@ namespace Generator
             public override IEnumerator OnAreaLoadEnum()
             {
                 int count = 0;
-                _mapRecord = new int[_size, _size];
                 float[,] highs = new float[_size, _size];
                 float[,,] alphaMap = new float[_size, _size, AlphaMapCount];
                 SrcTerrain.transform.position = WorldPoint;
@@ -65,7 +63,6 @@ namespace Generator
                                 float perlinValue = Mathf.Lerp(biome.MinHigh, biome.MaxHigh, Mathf.PerlinNoise(perlinPoint.x, perlinPoint.y));
 
                                 int subTerrainTexutreLayerIndex = biome.TerrainTextureLayerIndex;
-                                _mapRecord[x, y] = biome.BiomeIndex;
                                 float subFixPerlinValue = RunSubBiome(worldPoint, biome, perlinValue, new Vector2Int(x, y), ref subTerrainTexutreLayerIndex);
                                 float heightValue = highs[y, x];
 
@@ -84,6 +81,16 @@ namespace Generator
 
                 SrcTerrain.terrainData.SetAlphamaps(0, 0, alphaMap);
                 SrcTerrain.terrainData.SetHeights(0, 0, highs);
+            }
+
+            public float GetHigh(Vector3 pos)
+            {
+                Vector3 p = Index2WorldPoint();
+                Vector3 delta = pos - p;
+                int x = (int)(delta.x / Width * _size);
+                int y = (int)(delta.z / Height * _size);
+
+                return SrcTerrain.terrainData.GetHeight(x, y);
             }
 
             private void AdjustTexture(int x, int y, float[,,] alphaMap, int cur)
@@ -115,7 +122,6 @@ namespace Generator
                         float perlinValue = Mathf.Lerp(subBiome.MinHigh, subBiome.MaxHigh, Mathf.PerlinNoise(perlinPoint.x, perlinPoint.y));
 
                         int subTerrainTexutreLayerIndex = subBiome.TerrainTextureLayerIndex;
-                        _mapRecord[cp.x, cp.y] = subBiome.BiomeIndex;
                         float subFixPerlinValue = RunSubBiome(world, subBiome, perlinValue, cp, ref subTerrainTexutreLayerIndex);
                         alphaData = subTerrainTexutreLayerIndex;
                         fixPoint = Mathf.Lerp(parentValue, subFixPerlinValue, maskLerp);

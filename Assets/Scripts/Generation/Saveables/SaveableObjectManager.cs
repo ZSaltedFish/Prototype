@@ -12,7 +12,6 @@ namespace Generator
         public float MaxActiveRange = 1000f;
         public float UpdateTime = 5f;
         public int AreaWidth, AreaHeight;
-        public GameObject CenterObject;
         public static SaveableObjectManager INSTANCE { get; private set; }
 
         private SaveableAreaManager _areaManager;
@@ -29,7 +28,13 @@ namespace Generator
             ReferenceCollector refCol = GetComponent<ReferenceCollector>();
             _objPools = new SaveableObjectPools(refCol.Keys, refCol.Values, OnGet, OnPush);
             _areaManager = new SaveableAreaManager(AreaWidth, AreaHeight, MaxActiveRange);
-            _areaManager.Update(CenterObject.transform.position);
+
+            GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainUpdateFinished);
+        }
+
+        private void OnTerrainUpdateFinished(GameEventParam obj)
+        {
+            _areaManager.Update(obj.Get<Vector3>(GameEventFlag.Terrain_update_location));
         }
 
         private void OnGet(GameObject obj)
@@ -40,6 +45,11 @@ namespace Generator
         private void OnPush(GameObject obj)
         {
             obj.SetActive(false);
+        }
+
+        public void OnDestroy()
+        {
+            GameEventSystem.Unregister(GameEventType.TerrainUpdateFinished, OnTerrainUpdateFinished);
         }
 
         #region Object管理
@@ -97,39 +107,5 @@ namespace Generator
             return go.name.Split('~')[0];
         }
         #endregion
-
-        #region 活动区块管理
-        #endregion
-
-        #region 坐标计算
-        private bool OutoffRange(Vector2Int index1, Vector2Int index2)
-        {
-            float xDist = Mathf.Abs(index1.x - index2.x) * AreaWidth;
-            float yDist = Mathf.Abs(index1.y - index2.y) * AreaHeight;
-
-            return xDist * xDist + yDist * yDist > MaxActiveRange * MaxActiveRange;
-        }
-
-        private Vector2Int WorldPoint2AreaIndex(Vector3 worldPoint)
-        {
-            int xCount = ((int)worldPoint.x) / AreaWidth - (worldPoint.x < 0 ? 1 : 0);
-            int yCount = ((int)worldPoint.y) / AreaHeight - (worldPoint.y < 0 ? 1 : 0);
-            return new Vector2Int(xCount, yCount);
-        }
-        #endregion
-
-        private float _deltaTime = 0;
-        public void Update()
-        {
-            if (_deltaTime > UpdateTime)
-            {
-                _areaManager.Update(CenterObject.transform.position);
-                _deltaTime = 0;
-            }
-            else
-            {
-                _deltaTime += Time.deltaTime;
-            }
-        }
     }
 }
