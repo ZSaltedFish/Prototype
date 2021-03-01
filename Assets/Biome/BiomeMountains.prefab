@@ -45,13 +45,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TerrainTextureLayerIndex: 0
   BiomeIndex: 1
-  BiomeName: "\u5C71\u8109"
+  BiomeName:
+    LocalizationName: -895806032
   BaseHigh: 0
   MinHigh: 0.46364814
   MaxHigh: 0.69307786
   Complexity: 1.95
   Rarity: 0.605
-  Range: 2.85
+  Range: 0.42
   SubList: []
   Trees:
   - {fileID: 4106908266982366096, guid: 4f7bfaabdd3b88a46b2dbc46bbb72b43, type: 3}

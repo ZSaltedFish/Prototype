@@ -37,6 +37,7 @@ namespace Generator
             {
                 for (int y = 0; y < _detialSize; ++y)
                 {
+                    
                     float xOff = Width * x / _detialSize;
                     float yOff = Height * y / _detialSize;
                     Vector3 worldPoint = Index2WorldPoint() + new Vector3(xOff, 0, yOff);

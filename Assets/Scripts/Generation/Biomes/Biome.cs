@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Localization;
+using System;
 using UnityEngine;
 
 namespace Generator
@@ -10,7 +11,7 @@ namespace Generator
         public int TerrainTextureLayerIndex;
         public int BiomeIndex;
 
-        public string BiomeName;
+        public LocalizationString BiomeName;
 
         public float BaseHigh;
         public float MinHigh;

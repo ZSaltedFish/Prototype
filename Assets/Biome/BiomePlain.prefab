@@ -45,7 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TerrainTextureLayerIndex: 1
   BiomeIndex: 0
-  BiomeName: 
+  BiomeName:
+    LocalizationName: -904315208
   BaseHigh: 0
   MinHigh: 0.1567261
   MaxHigh: 0.2024379

@@ -1,5 +1,6 @@
 ﻿using EditorHelper;
 using Generator;
+using Localization;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,14 +10,16 @@ namespace GameEditor
     public class BiomeEditor : Editor
     {
         private Biome _target;
+        private string _tempName = LocalizationString.LOCAL_NULL_DATA;
         public void Awake()
         {
             _target = target as Biome;
+            _tempName = LocalizationString.LOCAL_NULL_DATA;
         }
         public override void OnInspectorGUI()
         {
             //_target.BiomeIndex = EditorDataFields.EditorDataField("生物群落索引", _target.BiomeIndex);
-            _target.BiomeName = EditorDataFields.EditorDataField("群落名字", _target.BiomeName);
+            _target.BiomeName = _target.BiomeName.Edit("生物群落名字", ref _tempName);
             _target.TerrainTextureLayerIndex = EditorDataFields.EditorDataField("基础贴图索引", _target.TerrainTextureLayerIndex);
             //_target.BaseHigh = EditorGUILayout.Slider("基础高度", _target.BaseHigh, 0, 1);
             EditorGUILayout.MinMaxSlider("高度范围(0-1)", ref _target.MinHigh, ref _target.MaxHigh, 0f, 1f);
