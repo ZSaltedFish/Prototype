@@ -7,7 +7,7 @@ namespace Generator
 {
     public class GameEventSystem : MonoBehaviour
     {
-
+        private static readonly GameEventParam _PARAMS = new GameEventParam();
         private Dictionary<GameEventType, List<Action<GameEventParam>>> _eventList;
         private Dictionary<GameEventType, List<Action<GameEventParam>>> _dynimacEventList;
 
@@ -48,6 +48,11 @@ namespace Generator
             list.Add((Action<GameEventParam>)Delegate.CreateDelegate(typeof(Action<GameEventParam>), info));
         }
 
+        public static void ThrowEvent(GameEventType type)
+        {
+            _INSTANCE.ThrowEventAct(type, _PARAMS);
+        }
+
         public static void ThrowEvent(GameEventType type, GameEventParam param)
         {
             _INSTANCE.ThrowEventAct(type, param);
@@ -86,30 +91,32 @@ namespace Generator
         {
             if (_eventList.TryGetValue(type, out List<Action<GameEventParam>> list))
             {
-                try
+                List<Action<GameEventParam>> newlist = new List<Action<GameEventParam>>(list);
+                foreach (var item in list)
                 {
-                    foreach (var item in list)
+                    try
                     {
                         item(param);
                     }
-                }
-                catch (Exception err)
-                {
-                    Debug.LogError(err);
+                    catch (Exception err)
+                    {
+                        Debug.LogError($"事件错误:{type}\n{err}");
+                    }
                 }
             }
-            if (_dynimacEventList.TryGetValue(type, out List<Action<GameEventParam>> dynList))
+            if (_dynimacEventList.TryGetValue(type, out list))
             {
-                try
+                List<Action<GameEventParam>> newlist = new List<Action<GameEventParam>>(list);
+                foreach (var item in newlist)
                 {
-                    foreach (var item in dynList)
+                    try
                     {
                         item(param);
                     }
-                }
-                catch (Exception err)
-                {
-                    Debug.LogError(err);
+                    catch (Exception err)
+                    {
+                        Debug.LogError($"事件错误:{type}\n{err}");
+                    }
                 }
             }
         }

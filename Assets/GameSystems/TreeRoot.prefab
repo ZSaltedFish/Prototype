@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpdateTime: 5
   CenterObj: {fileID: 0}
-  Width: 50
-  Height: 50
-  Range: 80
-  DetialSize: 25
+  Width: 300
+  Height: 300
+  Range: 150
+  DetialSize: 50

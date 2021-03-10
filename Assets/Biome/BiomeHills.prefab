@@ -44,16 +44,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TerrainTextureLayerIndex: 2
-  BiomeIndex: 0
+  BiomeIndex: 1
   BiomeName:
     LocalizationName: -774383003
-  BaseHigh: 0
-  MinHigh: 0.31018713
-  MaxHigh: 0.35916406
-  Complexity: 2.69
-  Rarity: 0.301
-  Range: 0.92
-  SubList: []
+  PwrValue: 0.05
+  MinHigh: 0.05
+  MaxHigh: 0.09606712
+  Complexity: 6.85
+  Rarity: 0.334
+  Range: 5
+  BiomeBlendingRange: 0
   Trees:
-  - {fileID: 4106908266982366096, guid: 4f7bfaabdd3b88a46b2dbc46bbb72b43, type: 3}
-  TreeThreshold: 0.1
+  - {fileID: 2347866034644429800, guid: a68a6c91499773645b2eb7caeaf54c21, type: 3}
+  TreeThreshold: 0.005
+  SubBiomes:
+  - {fileID: 2176775003348880759, guid: 5cf2aaf0b728d1e4fb807d7f0a2789da, type: 3}
+  - {fileID: 2176775003348880759, guid: db34d80f7c0522243bdf04ee9d2f0ca8, type: 3}

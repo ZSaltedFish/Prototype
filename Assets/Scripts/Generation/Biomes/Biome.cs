@@ -1,5 +1,6 @@
 ﻿using Localization;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Generator
@@ -13,16 +14,38 @@ namespace Generator
 
         public LocalizationString BiomeName;
 
-        public float BaseHigh;
+        public float PwrValue;
         public float MinHigh;
         public float MaxHigh;
 
         public float Complexity;
         public float Rarity;
         public float Range;
-        public Biome[] SubList;
+        public float BiomeBlendingRange = 0.01f;
 
         public GameObject[] Trees;
         public float TreeThreshold;
+
+        public Texture2D SrcTexture;
+
+        public Biome[] SubBiomes;
+        public Biome Parent { get; private set; }
+        public static Biome ROOT;
+        public static void InitBiomeTree(Biome root)
+        {
+            ROOT = root;
+            Stack<Biome> stack = new Stack<Biome>();
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                Biome nowRoot = stack.Pop();
+                foreach (var item in nowRoot.SubBiomes)
+                {
+                    item.Parent = nowRoot;
+                    stack.Push(item);
+                }
+            }
+        }
     }
 }

@@ -47,10 +47,10 @@ MonoBehaviour:
   SrcCamera: {fileID: 0}
   LockUpObject: {fileID: 0}
   AxisSpeed: 120
-  Speed: 5
-  CameraSpeed: 3
-  RotateSpeed: 60
-  JumpSpeed: 8
+  Speed: 20
+  CameraSpeed: 300
+  RotateSpeed: 20
+  JumpSpeed: 20
   Gravity: -9.8
 --- !u!1 &7217141051693935326
 GameObject:

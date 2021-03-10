@@ -28,13 +28,11 @@ namespace Control
         }
         public void OnAttackBegin()
         {
-            Debug.Log($"开始攻击");
             _attackBegin = true;
         }
 
         public void OnAttackEnd()
         {
-            Debug.Log($"结束攻击");
             _attackBegin = false;
         }
 
@@ -42,16 +40,11 @@ namespace Control
         {
             if (_attackBegin)
             {
-                Debug.Log($"造成伤害{other.gameObject.name}");
                 if (Effect != null)
                 {
                     Effect.transform.position = other.ClosestPoint(transform.position);
                     Effect.Play();
                 }
-            }
-            else
-            {
-                Debug.Log($"碰撞到:{other.gameObject.name}");
             }
 
         }

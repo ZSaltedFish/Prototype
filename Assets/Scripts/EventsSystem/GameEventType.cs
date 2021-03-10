@@ -4,6 +4,7 @@
     {
         GameEventInitFinished,
         PlayerUnitCreated,
-        TerrainUpdateFinished
+        TerrainUpdateFinished,
+        TextureMapInitFinished
     }
 }

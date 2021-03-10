@@ -47,14 +47,15 @@ MonoBehaviour:
   BiomeIndex: 0
   BiomeName:
     LocalizationName: -904315208
-  BaseHigh: 0
-  MinHigh: 0.1567261
-  MaxHigh: 0.2024379
-  Complexity: 1.67
+  PwrValue: 0.03
+  MinHigh: 0.05
+  MaxHigh: 0.055
+  Complexity: 3.61
   Rarity: 0
   Range: 0.01
-  SubList:
-  - {fileID: 2176775003348880759, guid: 45e70f3808bef404a96034983258622d, type: 3}
+  BiomeBlendingRange: 0
   Trees:
-  - {fileID: 4106908266982366096, guid: 4f7bfaabdd3b88a46b2dbc46bbb72b43, type: 3}
-  TreeThreshold: 0.2
+  - {fileID: 2347866034644429800, guid: a68a6c91499773645b2eb7caeaf54c21, type: 3}
+  TreeThreshold: 0.1
+  SubBiomes:
+  - {fileID: 2176775003348880759, guid: 45e70f3808bef404a96034983258622d, type: 3}

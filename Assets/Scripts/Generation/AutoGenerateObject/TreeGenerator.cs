@@ -17,7 +17,7 @@ namespace Generator
         private Dictionary<int, GameObject> _activityTrees = new Dictionary<int, GameObject>();
         private TreeAreaManager _manager;
 
-        private int _max = 500;
+        private int _max = 99999;
 
         public void Awake()
         {
@@ -35,17 +35,16 @@ namespace Generator
             {
                 Size = DetialSize
             };
-            GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
+            //GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
         }
 
         public void OnDestroy()
         {
-            GameEventSystem.Unregister(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
+            //GameEventSystem.Unregister(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
         }
 
         private void OnTerrainFishished(GameEventParam obj)
         {
-            Debug.Log($"更新树，现有{_activityTrees.Count}棵树");
             StartCoroutine(_manager.UpdateEnum(obj.Get<Vector3>(GameEventFlag.Terrain_update_location)));
         }
 
@@ -61,12 +60,16 @@ namespace Generator
 
         public void Generate(Vector3 worldPoint, System.Random rad)
         {
+            if (!BiomeGenerator.INSTANCE.TryGetBiomeSpecifiedLocation(worldPoint, out Biome curBiome))
+            {
+                return;
+            }
             if (BiomeGenerator.INSTANCE.TryGetHigh(worldPoint, out float high))
             {
                 worldPoint.y = high;
             }
-            Biome curBiome = BiomeGenerator.INSTANCE.GetBiomeSpecifiedLocation(worldPoint);
-            if (curBiome.Trees.Length == 0 || _activityTrees.Count > _max || IsBlocked(worldPoint))
+
+            if (curBiome == null || curBiome.Trees.Length == 0 || _activityTrees.Count > _max || IsBlocked(worldPoint))
             {
                 return;
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameToolComponents;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,6 +15,7 @@ namespace Generator
         public int TerrainWidth, TerrainHeight;
         public GameObject DefaultTerrain;
         public TerrainData DefaultTerrainData;
+        //private MapManager _map;
         private TerrainGenerator _terrainGenerator;
         public void Awake()
         {
@@ -24,13 +26,15 @@ namespace Generator
             INSTANCE = this;
             InitBiomes();
             Random.InitState(Seed);
+            ExMath.SetRandomSeed(Seed);
+            Biome.InitBiomeTree(Biomes[0]);
         }
 
         public void Start()
         {
             _terrainGenerator = new TerrainGenerator(DefaultTerrainData, DefaultTerrain,
                 TerrainWidth, TerrainHeight, Biomes);
-            StartCoroutine(_terrainGenerator.UpdateEnum(Vector3.zero));
+            StartCoroutine(_terrainGenerator.UpdateEnum(ActorManager.GetPlayerLocation()));
         }
 
         private void InitBiomes()
@@ -47,24 +51,18 @@ namespace Generator
         }
 
         public float MaxTimeDelta = 5f;
-        private float _curTimeDelta = 0;
 
         public void Update()
         {
-            if (_curTimeDelta > MaxTimeDelta)
+            if (!_terrainGenerator.CoroutineRunning)
             {
-                _curTimeDelta = 0;
                 StartCoroutine(_terrainGenerator.UpdateEnum(ActorManager.GetPlayerLocation()));
-            }
-            else
-            {
-                _curTimeDelta += Time.deltaTime;
             }
         }
 
-        public Biome GetBiomeSpecifiedLocation(Vector3 pos)
+        public bool TryGetBiomeSpecifiedLocation(Vector3 pos, out Biome biome)
         {
-            return _terrainGenerator.GetBiomeSpecifiedLocation(pos);
+            return _terrainGenerator.TryGetBiomeSpecifiedLocation(pos, out biome);
         }
 
         public bool TryGetHigh(Vector3 pos, out float high)

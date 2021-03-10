@@ -7,6 +7,7 @@ namespace GameToolComponents
 {
     public abstract class DynamicAreaController<T> : IDisposable where T : DynamicArea
     {
+        public bool CoroutineRunning { get; private set; } = false;
         public float Width, Height;
         public float MaxRange;
         /// <summary>
@@ -55,6 +56,7 @@ namespace GameToolComponents
         /// <returns></returns>
         public IEnumerator UpdateEnum(Vector3 centerPoint)
         {
+            CoroutineRunning = true;
             Vector2Int centerIndex = WorldPoint2AreaIndex(centerPoint);
 
             List<Vector2Int> keys = new List<Vector2Int>(LoadingArea.Keys);
@@ -64,15 +66,22 @@ namespace GameToolComponents
                 if (OutoffRange(key, centerIndex))
                 {
                     yield return area.OnAreaUnLoadEnum();
-                    if (ObjectPoolMode)
+                    try
                     {
-                        _usingPool.Push(area);
+                        if (ObjectPoolMode)
+                        {
+                            _usingPool.Push(area);
+                        }
+                        else
+                        {
+                            UnloadArea.Add(key, area);
+                        }
+                        LoadingArea.Remove(key);
                     }
-                    else
+                    catch (ArgumentException err)
                     {
-                        UnloadArea.Add(key, area);
+                        Debug.LogError(err);
                     }
-                    LoadingArea.Remove(key);
                 }
             }
 
@@ -111,6 +120,7 @@ namespace GameToolComponents
             }
 
             OnUpdateFinished?.Invoke();
+            CoroutineRunning = false;
         }
 
         protected abstract T OnCreate(Vector2Int wIndex);
