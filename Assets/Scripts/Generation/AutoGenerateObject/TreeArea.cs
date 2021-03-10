@@ -6,7 +6,7 @@ namespace Generator
 {
     public class TreeArea : DynamicArea
     {
-        public int MaxCount = 5;
+        public int MaxCount = 500;
         private int _count;
         private int _detialSize;
         private System.Random _rad;

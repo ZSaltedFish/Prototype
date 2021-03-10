@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Generator
 {
@@ -16,8 +15,6 @@ namespace Generator
         private Dictionary<string, ObjectPoolPattern<GameObject>> _objTreePools;
         private Dictionary<int, GameObject> _activityTrees = new Dictionary<int, GameObject>();
         private TreeAreaManager _manager;
-
-        private int _max = 99999;
 
         public void Awake()
         {
@@ -33,29 +30,20 @@ namespace Generator
         {
             _manager = new TreeAreaManager(Width, Height, Range)
             {
+                ObjectPoolMode = true,
                 Size = DetialSize
             };
-            //GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
+            GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
         }
 
         public void OnDestroy()
         {
-            //GameEventSystem.Unregister(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
+            GameEventSystem.Unregister(GameEventType.TerrainUpdateFinished, OnTerrainFishished);
         }
 
         private void OnTerrainFishished(GameEventParam obj)
         {
             StartCoroutine(_manager.UpdateEnum(obj.Get<Vector3>(GameEventFlag.Terrain_update_location)));
-        }
-
-        public void Run()
-        {
-            _manager = new TreeAreaManager(Width, Height, Range)
-            {
-                ObjectPoolMode = true,
-                Size = DetialSize
-            };
-            StartCoroutine(_manager.UpdateEnum(CenterObj.transform.position));
         }
 
         public void Generate(Vector3 worldPoint, System.Random rad)
@@ -69,7 +57,7 @@ namespace Generator
                 worldPoint.y = high;
             }
 
-            if (curBiome == null || curBiome.Trees.Length == 0 || _activityTrees.Count > _max || IsBlocked(worldPoint))
+            if (curBiome == null || curBiome.Trees.Length == 0 || IsBlocked(worldPoint))
             {
                 return;
             }

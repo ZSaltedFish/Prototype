@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Generator
 {
@@ -7,16 +8,23 @@ namespace Generator
         public float[] FixDatas;
         public List<Biome> Biomes;
 
+        private Biome _curBiome;
+
         public Biome CurBiome()
+        {
+            return _curBiome;
+        }
+
+        public void UpdateCurBiome()
         {
             for (int i = Biomes.Count - 1; i >= 0; --i)
             {
                 if (FixDatas[i] > 0.01f)
                 {
-                    return Biomes[i];
+                    _curBiome = Biomes[i];
+                    break;
                 }
             }
-            return Biomes[0];
         }
     }
 }

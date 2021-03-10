@@ -18,6 +18,7 @@ namespace Generator
 
         private int _size;
         private int _count = 0;
+        private TerrainAreaData[,] _datas;
 
         public TerrainArea(int count, GameObject terrainGo, TerrainData data, float width, float height, Vector2Int index)
             : base(width, height, index)
@@ -73,6 +74,11 @@ namespace Generator
             float[,] highs = new float[_size, _size];
             float[,,] alphaMap = new float[_size, _size, AlphaMapCount];
 
+            if (_datas == null)
+            {
+                _datas = new TerrainAreaData[dest.x, dest.y];
+            }
+
             for (int x = 0; x < dest.x; ++x)
             {
                 float xFlerp = x * (size.x - 1f) / (dest.x - 1f);
@@ -95,13 +101,18 @@ namespace Generator
                     TerrainAreaData q11 = biomeDatas[fixX, fixY];
 
                     Vector3 offWp = wp + new Vector3(xOff, 0, yOff);
-                    TerrainAreaData tData = BlendData(q00, q10, q01, q11, lerpX, lerpY);
+                    TerrainAreaData tData = _datas[x, y];
+                    if (tData == null)
+                    {
+                        tData = new TerrainAreaData();
+                        _datas[x, y] = tData;
+                    }
+                    BlendData(q00, q10, q01, q11, lerpX, lerpY, ref tData);
 
                     if (IsEnuerator())
                     {
                         yield return null;
                     }
-
                     Vector3 noisePoint = FromPos2PerlinPoint(offWp, 20f);
                     float noise = (Mathf.PerlinNoise(noisePoint.x, noisePoint.y) * 2 - 1) * 0.001f;
 
@@ -118,7 +129,6 @@ namespace Generator
                         perlinValue = Mathf.Lerp(perlinValue, high, lerpValue);
                     }
                     highs[y, x] = perlinValue + noise;
-                    //highs[y, x] = tData.FixPwrValue / MapBlockData.MBD_MAX / 10;
                 }
             }
 
@@ -126,16 +136,14 @@ namespace Generator
             SrcTerrain.terrainData.SetHeights(0, 0, highs);
         }
 
-        private TerrainAreaData BlendData(TerrainAreaData q00, TerrainAreaData q10, TerrainAreaData q01, TerrainAreaData q11, float lerpX, float lerpY)
+        private void BlendData(TerrainAreaData q00, TerrainAreaData q10, TerrainAreaData q01, TerrainAreaData q11, float lerpX, float lerpY, ref TerrainAreaData data)
         {
             lerpX = ExMath.PerlinLerp(0, 1, lerpX);
             lerpY = ExMath.PerlinLerp(0, 1, lerpY);
 
-            TerrainAreaData data = new TerrainAreaData
-            {
-                Biomes = q00.Biomes,
-                FixDatas = new float[q00.Biomes.Count]
-            };
+            data.Biomes = q00.Biomes;
+            data.FixDatas = new float[q00.Biomes.Count];
+
             for (int i = 0; i < data.Biomes.Count; i++)
             {
                 float v00, v10, v01, v11;
@@ -145,24 +153,8 @@ namespace Generator
                 v11 = q11.FixDatas[i];
                 data.FixDatas[i] = ExMath.DoubleLinearLerp(v00, v10, v01, v11, lerpX, lerpY);
             }
-
-            return data;
+            data.UpdateCurBiome();
         }
-
-        //private float CacluatePerlinNoiseValue(Vector3 wp, TerrainAreaData data)
-        //{
-        //    Biome biome = data.AreaBiome;
-        //    Vector3 srcPoint = FromPos2PerlinPoint(wp, biome.Complexity);
-        //    float perlinValue = Mathf.Lerp(biome.MinHigh, biome.MaxHigh, Mathf.PerlinNoise(srcPoint.x, srcPoint.y));
-        //    if (biome.Parent != null)
-        //    {
-        //        Vector3 parentPoint = FromPos2PerlinPoint(wp, biome.Parent.Complexity);
-        //        float parentValue = Mathf.Lerp(biome.Parent.MinHigh, biome.Parent.MaxHigh, Mathf.PerlinNoise(parentPoint.x, parentPoint.y));
-        //        perlinValue = Mathf.Lerp(parentValue, perlinValue, data.FixPwrValue / MapBlockData.MBD_MAX);
-        //    }
-
-        //    return perlinValue;
-        //}
 
         private bool IsEnuerator()
         {
@@ -182,7 +174,7 @@ namespace Generator
             int x = (int)(delta.x / Width * _size);
             int y = (int)(delta.z / Height * _size);
 
-            return Biomes[0];
+            return _datas[x, y].CurBiome();
         }
 
         private Vector2 FromPos2PerlinPoint(Vector3 worldPoint, float scale)

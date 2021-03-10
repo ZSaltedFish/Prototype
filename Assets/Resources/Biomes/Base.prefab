@@ -54,7 +54,8 @@ MonoBehaviour:
   Rarity: 0
   Range: 0.01
   BiomeBlendingRange: 0.01
-  Trees: []
-  TreeThreshold: 0
+  Trees:
+  - {fileID: 2347866034644429800, guid: a68a6c91499773645b2eb7caeaf54c21, type: 3}
+  TreeThreshold: 0.01
   SrcTexture: {fileID: 2800000, guid: 3cdad61ead68bfe4f80989c9e5068d1c, type: 3}
   SubBiomes: []
