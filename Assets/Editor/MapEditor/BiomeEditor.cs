@@ -34,14 +34,14 @@ namespace GameEditor
 
             //_target.PwrValue = EditorGUILayout.Slider("高度放大系数", _target.PwrValue, -0.1f, 2f);
 
-            _target.SubBiomes = EditorDataFields.EditorArrayField("子群落", _target.SubBiomes);
+           // _target.SubBiomes = EditorDataFields.EditorArrayField("子群落", _target.SubBiomes);
 
             using (new EditorVerticalLayout(EditorStyles.helpBox))
             {
                 _target.Complexity = EditorGUILayout.Slider("地形复杂度", _target.Complexity, 0.1f, Biome.BIOME_MAX_RANGE_TIMES);
-                _target.Rarity = EditorGUILayout.Slider("地形遮罩范围", _target.Rarity, 0f, 1f);
-                _target.Range = EditorGUILayout.Slider("地形碎裂度（越小代表越地形范围越连贯）", _target.Range, 0.01f, 5f);
-                _target.BiomeBlendingRange = EditorGUILayout.Slider("地形调和范围", _target.BiomeBlendingRange, 0f, 1f);
+                //_target.Rarity = EditorGUILayout.Slider("地形遮罩范围", _target.Rarity, 0f, 1f);
+                //_target.Range = EditorGUILayout.Slider("地形碎裂度（越小代表越地形范围越连贯）", _target.Range, 0.01f, 5f);
+                //_target.BiomeBlendingRange = EditorGUILayout.Slider("地形调和范围", _target.BiomeBlendingRange, 0f, 1f);
             }
 
             using (new EditorVerticalLayout(EditorStyles.helpBox))
@@ -50,12 +50,12 @@ namespace GameEditor
                 _target.Trees = EditorDataFields.EditorArrayField("树类型", _target.Trees);
             }
 
-            if (GUILayout.Button("打开测试界面"))
-            {
-                BiomeTestWindow window = EditorWindow.GetWindow<BiomeTestWindow>();
-                window.Biome = _target;
-                window.Show();
-            }
+            //if (GUILayout.Button("打开测试界面"))
+            //{
+            //    BiomeTestWindow window = EditorWindow.GetWindow<BiomeTestWindow>();
+            //    window.Biome = _target;
+            //    window.Show();
+            //}
 
             if (GUI.changed)
             {
