@@ -50,8 +50,8 @@ MonoBehaviour:
   - {fileID: 2176775003348880759, guid: 45e70f3808bef404a96034983258622d, type: 3}
   - {fileID: 2176775003348880759, guid: 5cf2aaf0b728d1e4fb807d7f0a2789da, type: 3}
   - {fileID: 2176775003348880759, guid: db34d80f7c0522243bdf04ee9d2f0ca8, type: 3}
-  TerrainWidth: 500
-  TerrainHeight: 500
+  TerrainWidth: 1000
+  TerrainHeight: 1000
   DefaultTerrain: {fileID: 3271709859574126781}
   DefaultTerrainData: {fileID: 15600000, guid: 88df2f42520c7c74b811516392cbbd92, type: 2}
   MaxTimeDelta: 5

@@ -57,7 +57,7 @@ namespace Generator
                 {
                     biomesData[x - rect.xMin, y - rect.yMin] = new TerrainAreaData()
                     {
-                        Biomes = MapGenerator.INSTANCE.Biomes,
+                        Biomes = MapGenerator.INSTANCE.GetBiome(x, y),
                         FixDatas = MapGenerator.INSTANCE.GetDatas(x, y)
                     };
                     if (IsEnuerator())
@@ -119,7 +119,7 @@ namespace Generator
                     alphaMap[y, x, tData.CurBiome().TerrainTextureLayerIndex] = 1;
 
                     float perlinValue = 0;
-                    for (int i = 0; i < tData.Biomes.Count; ++i)
+                    for (int i = 0; i < tData.Biomes.Length; ++i)
                     {
                         Biome biome = tData.Biomes[i];
                         float lerpValue = tData.FixDatas[i];
@@ -131,27 +131,55 @@ namespace Generator
                     highs[y, x] = perlinValue + noise;
                 }
             }
-
-            SrcTerrain.terrainData.SetAlphamaps(0, 0, alphaMap);
             SrcTerrain.terrainData.SetHeights(0, 0, highs);
+            for (int x = 0; x < _size; ++x)
+            {
+                for (int y = 0; y < _size; ++y)
+                {
+                    float dx = x / (float)_size;
+                    float dy = y / (float)_size;
+                    Vector3 normal = SrcTerrain.terrainData.GetInterpolatedNormal(dx, dy);
+                    float dot = Vector3.Dot(normal, Vector3.up) * Mathf.Rad2Deg;
+
+                    int texIndex = _datas[x, y].CurBiome().TerrainTextureLayerIndex;
+                    if (dot < 30)
+                    {
+                        alphaMap[y, x, texIndex] = 0;
+                        alphaMap[y, x, 4] = 1;
+                    }
+                    else if (30 <= dot && dot <= 45)
+                    {
+                        float lerpValue = Mathf.Lerp(1, 0, (dot - 30) / 15f);
+                        alphaMap[y, x, texIndex] = Mathf.Lerp(0, 1, lerpValue);
+                        alphaMap[y, x, 4] = Mathf.Lerp(1, 0, lerpValue);
+                    }
+                    if (IsEnuerator())
+                    {
+                        yield return null;
+                    }
+                }
+            }
+            SrcTerrain.terrainData.SetAlphamaps(0, 0, alphaMap);
         }
 
         private void BlendData(TerrainAreaData q00, TerrainAreaData q10, TerrainAreaData q01, TerrainAreaData q11, float lerpX, float lerpY, ref TerrainAreaData data)
         {
-            lerpX = ExMath.PerlinLerp(0, 1, lerpX);
-            lerpY = ExMath.PerlinLerp(0, 1, lerpY);
 
             data.Biomes = q00.Biomes;
-            data.FixDatas = new float[q00.Biomes.Count];
+            data.FixDatas = new float[q00.Biomes.Length];
 
-            for (int i = 0; i < data.Biomes.Count; i++)
+            for (int i = 0; i < data.Biomes.Length; ++i)
             {
+                Biome biome = data.Biomes[i];
+                float tempLerpX = biome.TerrainCurve.Evaluate(lerpX);
+                float tempLerpY = biome.TerrainCurve.Evaluate(lerpY);
                 float v00, v10, v01, v11;
                 v00 = q00.FixDatas[i];
                 v10 = q10.FixDatas[i];
                 v01 = q01.FixDatas[i];
                 v11 = q11.FixDatas[i];
-                data.FixDatas[i] = ExMath.DoubleLinearLerp(v00, v10, v01, v11, lerpX, lerpY);
+                data.FixDatas[i] = ExMath.DoubleLinearLerp(v00, v10, v01, v11, tempLerpX, tempLerpY);
+                //data.FixDatas[i] = ExMath.DoubleLinearLerp(v00, v10, v01, v11, lerpX, lerpY);
             }
             data.UpdateCurBiome();
         }

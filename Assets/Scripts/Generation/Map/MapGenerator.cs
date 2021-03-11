@@ -6,6 +6,7 @@ namespace Generator
 {
     public class MapGenerator : MonoBehaviour, IMap
     {
+        public const float FRAMGE_VALUE = 0.001f;
         public float TargetSize = 10000f;
         public static MapGenerator INSTANCE { get; private set; }
         public List<Biome> Biomes;
@@ -66,12 +67,18 @@ namespace Generator
             return new RectInt(xStart, yStart, xEnd - xStart, yEnd - yStart);
         }
 
+        public Biome[] GetBiome(int x, int y)
+        {
+            return Biomes.ToArray();
+        }
+
         public float[] GetDatas(int x, int y)
         {
             float[] values = new float[Biomes.Count];
             for (int i = 0; i < Biomes.Count; ++i)
             {
-                values[i] = BiomeDatas[i, x, y];
+                float value = BiomeDatas[i, x, y];
+                values[i] = value;
             }
             return values;
         }

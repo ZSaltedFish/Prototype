@@ -9,8 +9,8 @@ namespace Generator
     public partial class TerrainGenerator : DynamicAreaController<TerrainArea>, IDisposable
     {
 
-        public const int UPDATE_COUNT = 11000;
-        public const float VIEW_DIST = 1000;
+        public const int UPDATE_COUNT = 50000;
+        public const float VIEW_DIST = 2000;
         public const string CLONE_TERRAIN_NAME = "TerrainDefaultClone";
         public readonly TerrainData DefaultTerrainData;
 

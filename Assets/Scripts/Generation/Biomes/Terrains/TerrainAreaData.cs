@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Generator
 {
     public class TerrainAreaData
     {
         public float[] FixDatas;
-        public List<Biome> Biomes;
+        public Biome[] Biomes;
 
         private Biome _curBiome;
 
@@ -17,7 +16,7 @@ namespace Generator
 
         public void UpdateCurBiome()
         {
-            for (int i = Biomes.Count - 1; i >= 0; --i)
+            for (int i = Biomes.Length - 1; i >= 0; --i)
             {
                 if (FixDatas[i] > 0.01f)
                 {

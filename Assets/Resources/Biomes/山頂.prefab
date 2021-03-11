@@ -48,8 +48,8 @@ MonoBehaviour:
   BiomeName:
     LocalizationName: -1945069129
   PwrValue: 0
-  MinHigh: 0.48374406
-  MaxHigh: 0.8044416
+  MinHigh: 0.68825376
+  MaxHigh: 0.9617567
   Complexity: 0.75
   Rarity: 0
   Range: 0.01
@@ -58,4 +58,28 @@ MonoBehaviour:
   - {fileID: 2347866034644429800, guid: a68a6c91499773645b2eb7caeaf54c21, type: 3}
   TreeThreshold: 0.005
   SrcTexture: {fileID: 2800000, guid: 5f151730227f4704298fcff0ace61d6b, type: 3}
+  TerrainCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   SubBiomes: []

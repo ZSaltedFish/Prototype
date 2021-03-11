@@ -10,7 +10,7 @@ namespace Generator
 
         private GameObject _actorUnit;
         private static ActorManager _INSTANCE;
-        private Vector3 _localPos = new Vector3(750, 0, 750);
+        private Vector3 _localPos = new Vector3(4670, 0, 6100);
         private GameObject _cameraObject;
 
         public void Awake()
@@ -26,6 +26,7 @@ namespace Generator
         private void InitObject(GameEventParam param)
         {
             _actorUnit = Instantiate(TempGo);
+            _actorUnit.transform.position = _localPos;
             if (BiomeGenerator.INSTANCE.TryGetHigh(_actorUnit.transform.position, out float high))
             {
                 Vector3 pos = _actorUnit.transform.position;

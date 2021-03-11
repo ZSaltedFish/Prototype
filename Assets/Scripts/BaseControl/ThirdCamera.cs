@@ -23,10 +23,14 @@ namespace Control
         }
         public void Update()
         {
-            UpdateCamera();
             Move();
             RotateAngle();
             CameraDistance();
+        }
+
+        public void LateUpdate()
+        {
+            UpdateCamera();
         }
 
         private void RotateAngle()

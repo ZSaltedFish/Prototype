@@ -9,6 +9,7 @@ namespace Generator
     public class Biome : MonoBehaviour
     {
         public const float BIOME_MAX_RANGE_TIMES = 10;
+        #region 可引用参数
         public int TerrainTextureLayerIndex;
         public int BiomeIndex;
 
@@ -27,8 +28,10 @@ namespace Generator
         public float TreeThreshold;
 
         public Texture2D SrcTexture;
-
+        public AnimationCurve TerrainCurve;
         public Biome[] SubBiomes;
+        #endregion
+
         public Biome Parent { get; private set; }
         public static Biome ROOT;
         public static void InitBiomeTree(Biome root)
