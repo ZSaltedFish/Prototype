@@ -40,12 +40,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 543244186834475541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a1377b49e76d024f875df7fc83462ec, type: 3}
+  m_Script: {fileID: 11500000, guid: a150fb134e5e00f4cbc76d61b0cb4225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UpdateTime: 5
   CenterObj: {fileID: 0}
-  Width: 300
-  Height: 300
-  Range: 500
-  DetialSize: 200
+  Width: 500
+  Height: 500
+  Range: 1000
+  DetialSize: 100

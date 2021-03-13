@@ -27,7 +27,6 @@ namespace Generator
             InitBiomes();
             Random.InitState(Seed);
             ExMath.SetRandomSeed(Seed);
-            Biome.InitBiomeTree(Biomes[0]);
         }
 
         public void Start()

@@ -97,18 +97,41 @@ namespace GameToolComponents
         }
 
         private static float[] _PERLIN_VALUE;
+        private static int[] _RANDOM_VALUE;
 
+        private const int PWR_VALUE = 10000;
         public static void SetRandomSeed(int seed)
         {
-            const int PWR_VALUE = 10000;
             _RANDOM = new Random(seed);
             _SEED = seed + _RANDOM.Next();
             _PERLIN_VALUE = new float[256];
+            _RANDOM_VALUE = new int[1024];
 
             for (int i = 0; i < _PERLIN_VALUE.Length; ++i)
             {
                 _PERLIN_VALUE[i] = _RANDOM.Next(-PWR_VALUE, PWR_VALUE) / (float)PWR_VALUE;
             }
+
+            for (int i = 0; i < _RANDOM_VALUE.Length; ++i)
+            {
+                _RANDOM_VALUE[i] = _RANDOM.Next(0, PWR_VALUE);
+            }
+        }
+
+        public static float GetRandom(int pos, float min, float max)
+        {
+            float v = GetRandom(pos);
+            return Mathf.Lerp(min, max, v);
+        }
+
+        public static float GetRandom(int pos)
+        {
+            if (pos < 0)
+            {
+                pos += (-pos / _RANDOM_VALUE.Length + 1) * _RANDOM_VALUE.Length;
+            }
+
+            return _RANDOM_VALUE[pos % _RANDOM_VALUE.Length] / (float)PWR_VALUE;
         }
 
         public static float PerlinNoise1D(float x)

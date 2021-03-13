@@ -37,11 +37,7 @@ namespace GameEditor
                 _target.TerrainCurve = EditorGUILayout.CurveField("地形放大曲线", _target.TerrainCurve);
             }
 
-            using (new EditorVerticalLayout(EditorStyles.helpBox))
-            {
-                _target.TreeThreshold = EditorGUILayout.Slider("树阈值", _target.TreeThreshold, 0f, 1f);
-                _target.Trees = EditorDataFields.EditorArrayField("树类型", _target.Trees);
-            }
+            _target.EnviromentData = EditorDataFields.EditorDataField("环境对象", _target.EnviromentData);
 
             //if (GUILayout.Button("打开测试界面"))
             //{

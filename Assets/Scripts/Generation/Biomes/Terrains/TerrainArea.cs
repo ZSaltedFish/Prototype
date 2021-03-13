@@ -142,16 +142,10 @@ namespace Generator
                     float dot = Vector3.Dot(normal, Vector3.up) * Mathf.Rad2Deg;
 
                     int texIndex = _datas[x, y].CurBiome().TerrainTextureLayerIndex;
-                    if (dot < 30)
+                    if (dot < 40)
                     {
                         alphaMap[y, x, texIndex] = 0;
                         alphaMap[y, x, 4] = 1;
-                    }
-                    else if (30 <= dot && dot <= 45)
-                    {
-                        float lerpValue = Mathf.Lerp(1, 0, (dot - 30) / 15f);
-                        alphaMap[y, x, texIndex] = Mathf.Lerp(0, 1, lerpValue);
-                        alphaMap[y, x, 4] = Mathf.Lerp(1, 0, lerpValue);
                     }
                     if (IsEnuerator())
                     {
@@ -159,6 +153,19 @@ namespace Generator
                     }
                 }
             }
+
+            int detailSize = SrcTerrain.terrainData.detailResolution;
+            int[,] des = new int[detailSize, detailSize];
+            for (int x = 0; x < detailSize; ++x)
+            {
+                for (int y = 0; y < detailSize; ++y)
+                {
+                    Vector3 normal = SrcTerrain.terrainData.GetInterpolatedNormal(x / (float)detailSize, y / (float)detailSize);
+                    float dot = Vector3.Dot(normal, Vector3.up) * Mathf.Rad2Deg;
+                    des[y, x] = dot > 45 ? 6 : 0;
+                }
+            }
+            SrcTerrain.terrainData.SetDetailLayer(0, 0, 0, des);
             SrcTerrain.terrainData.SetAlphamaps(0, 0, alphaMap);
         }
 
@@ -179,7 +186,6 @@ namespace Generator
                 v01 = q01.FixDatas[i];
                 v11 = q11.FixDatas[i];
                 data.FixDatas[i] = ExMath.DoubleLinearLerp(v00, v10, v01, v11, tempLerpX, tempLerpY);
-                //data.FixDatas[i] = ExMath.DoubleLinearLerp(v00, v10, v01, v11, lerpX, lerpY);
             }
             data.UpdateCurBiome();
         }

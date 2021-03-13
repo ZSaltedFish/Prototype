@@ -56,6 +56,7 @@ namespace Generator
         public void CreateObj(string name, byte[] initData)
         {
             GameObject go = _objPools.Get(name);
+            go.transform.SetParent(transform);
             SaveableObject saveComponent = go.GetComponent<SaveableObject>();
 
             if (saveComponent != null)
@@ -69,6 +70,7 @@ namespace Generator
         public void CreateObj(string name, Vector3 pos)
         {
             GameObject go = _objPools.Get(name);
+            go.transform.SetParent(transform);
             go.transform.position = pos;
             SetName(name, go);
             _activityObject.Add(go.GetInstanceID(), go);
@@ -95,6 +97,18 @@ namespace Generator
         public GameObject Get(int id)
         {
             return _activityObject[id];
+        }
+
+        public void Register(string name, GameObject obj)
+        {
+            try
+            {
+                _objPools.Add(name, obj, OnGet, OnPush);
+            }
+            catch (Exception err)
+            {
+                Debug.LogError(err);
+            }
         }
 
         private static void SetName(string name, GameObject go)

@@ -54,9 +54,6 @@ MonoBehaviour:
   Rarity: 0
   Range: 0.01
   BiomeBlendingRange: 0.01
-  Trees:
-  - {fileID: 2347866034644429800, guid: a68a6c91499773645b2eb7caeaf54c21, type: 3}
-  TreeThreshold: 0.1
   SrcTexture: {fileID: 2800000, guid: cc7b065fc8b246f41a2956c29bbfbad7, type: 3}
   TerrainCurve:
     serializedVersion: 2
@@ -82,4 +79,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  SubBiomes: []
+  EnviromentData: {fileID: 3962757651654809132, guid: 27a955dbe6d1a9048b9f753a0f0a3962, type: 3}

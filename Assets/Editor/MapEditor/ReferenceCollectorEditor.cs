@@ -71,7 +71,7 @@ namespace GameEditor
                         controlKey = EditorDataFields.EditorDataField(controlKey);
                         try
                         {
-                            if (GUILayout.Button("新建"))
+                            if (GUILayout.Button("Create"))
                             {
                                 dict.Add(new ReferenceCollector.StringObjectPair(controlKey));
                             }
@@ -83,6 +83,7 @@ namespace GameEditor
                     }
                 }
             }
+            DragAreaGetObject.GetDrawData(dict);
             return dict;
         }
     }

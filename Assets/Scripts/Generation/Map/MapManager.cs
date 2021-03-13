@@ -181,58 +181,7 @@ namespace Generator
 
         private int MinAround(int x, int y, byte nowType)
         {
-            if (x == 0 || x == _size.x - 1 || y == 0 || y == _size.y - 1)
-            {
-                return MapBlockData.MBD_MIN - 1;
-            }
-
-            MapBlockData upMBD, downMBD, leftMBD, rightMBD;
-            upMBD = _datas[x, y + 1];
-            downMBD = _datas[x, y - 1];
-            leftMBD = _datas[x - 1, y];
-            rightMBD = _datas[x + 1, y];
-
-            bool isSub = IsSubBiome(nowType, upMBD.BiomeType);
-            isSub = isSub && IsSubBiome(nowType, downMBD.BiomeType);
-            isSub = isSub && IsSubBiome(nowType, leftMBD.BiomeType);
-            isSub = isSub && IsSubBiome(nowType, rightMBD.BiomeType);
-
-            if (!isSub)
-            {
-                return MapBlockData.MBD_MIN - 1;
-            }
-
-            byte up = byte.MaxValue;
-            byte down = byte.MaxValue;
-            byte right = byte.MaxValue;
-            byte left = byte.MaxValue;
-
-            if (upMBD.BiomeType == nowType) up = upMBD.BlendValue;
-            if (downMBD.BiomeType == nowType) down = downMBD.BlendValue;
-            if (leftMBD.BiomeType == nowType) left = leftMBD.BlendValue;
-            if (rightMBD.BiomeType == nowType) right = rightMBD.BlendValue;
-
-            byte src = (byte)Mathf.Min(up, down, left, right);
-            return src;
-        }
-
-        private bool IsSubBiome(int src, int target)
-        {
-            if (src == target)
-            {
-                return true;
-            }
-            Biome srcBiome = _biomes[src];
-
-            for (int i = 0; i < srcBiome.SubBiomes.Length; ++i)
-            {
-                Biome subBiome = srcBiome.SubBiomes[i];
-                if (subBiome.BiomeIndex == target)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return 0;
         }
 
         private Vector2 FromPos2PerlinPoint(Vector2 worldPoint, float scale)

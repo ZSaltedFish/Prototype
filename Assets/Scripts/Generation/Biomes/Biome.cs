@@ -24,31 +24,9 @@ namespace Generator
         public float Range;
         public float BiomeBlendingRange = 0.01f;
 
-        public GameObject[] Trees;
-        public float TreeThreshold;
-
         public Texture2D SrcTexture;
         public AnimationCurve TerrainCurve;
-        public Biome[] SubBiomes;
+        public EnvironmentObjectData EnviromentData;
         #endregion
-
-        public Biome Parent { get; private set; }
-        public static Biome ROOT;
-        public static void InitBiomeTree(Biome root)
-        {
-            ROOT = root;
-            Stack<Biome> stack = new Stack<Biome>();
-            stack.Push(root);
-
-            while (stack.Count > 0)
-            {
-                Biome nowRoot = stack.Pop();
-                foreach (var item in nowRoot.SubBiomes)
-                {
-                    item.Parent = nowRoot;
-                    stack.Push(item);
-                }
-            }
-        }
     }
 }
