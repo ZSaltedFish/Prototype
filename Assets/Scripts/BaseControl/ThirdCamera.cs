@@ -96,6 +96,10 @@ namespace Control
             else
             {
                 _ySpeed += Gravity * Time.deltaTime;
+                if (Input.GetButton("Jump"))
+                {
+                    _ySpeed = Mathf.Max(_ySpeed, 0);
+                }
             }
 
             speedDire.y = _ySpeed * Time.deltaTime;

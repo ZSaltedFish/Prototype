@@ -43,7 +43,6 @@ namespace Generator
                 }
                 list.Add(nameData);
             }
-            Debug.Log($"读取地块包含{count}个单位");
             return dict;
         }
 
@@ -58,7 +57,6 @@ namespace Generator
                 byte[] serialize = saveObj.Serialize();
                 writer.Set(name).Set(serialize);
             }
-            Debug.Log($"保存地块包含{unloadObjects.Count}个单位");
 
             _preLoadData = writer.ToBytes();
         }

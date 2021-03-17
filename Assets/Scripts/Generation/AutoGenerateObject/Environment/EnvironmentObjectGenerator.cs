@@ -9,6 +9,7 @@ namespace Generator
     {
         public float Width, Height, Range;
         public int Size;
+        public List<ReferenceCollector> SceneObjects;
 
         private EnvironmentAreaController _controller;
         private Dictionary<string, GameObject> _registerList;
@@ -39,11 +40,7 @@ namespace Generator
                         if (BiomeGenerator.INSTANCE.TryGetHigh(offPos, out float high))
                         {
                             GameObject rock = biome.EnviromentData.RockList[0];
-                            if (!_registerList.ContainsKey(rock.name))
-                            {
-                                SaveableObjectManager.INSTANCE.Register(rock.name, rock);
-                                _registerList.Add(rock.name, rock);
-                            }
+                            Register(rock);
 
                             int randomPos = (int)(offPos.x * MapGenerator.INSTANCE.TargetSize + offPos.z);
                             float value = ExMath.GetRandom(randomPos, 0, 1);
@@ -54,6 +51,17 @@ namespace Generator
                         }
                     }
                 }
+            }
+
+
+        }
+
+        private void Register(GameObject go)
+        {
+            if (!_registerList.ContainsKey(go.name))
+            {
+                SaveableObjectManager.INSTANCE.Register(go.name, go);
+                _registerList.Add(go.name, go);
             }
         }
 

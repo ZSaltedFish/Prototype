@@ -201,7 +201,7 @@ namespace GameToolComponents
             UnloadArea.Clear();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             ReleaseUnloadArea();
             ReleaseLoadingArea();

@@ -27,9 +27,18 @@ namespace Generator
             INSTANCE = this;
             ReferenceCollector refCol = GetComponent<ReferenceCollector>();
             _objPools = new SaveableObjectPools(refCol.Keys, refCol.Values, OnGet, OnPush);
-            _areaManager = new SaveableAreaManager(AreaWidth, AreaHeight, MaxActiveRange);
+            _areaManager = new SaveableAreaManager(AreaWidth, AreaHeight, MaxActiveRange)
+            {
+                OnUpdateFinished = OnUpdateFinished
+            };
 
             GameEventSystem.Register(GameEventType.TerrainUpdateFinished, OnTerrainUpdateFinished);
+            GameEventSystem.ThrowEvent(GameEventType.SaveableObjectRegister);
+        }
+
+        private void OnUpdateFinished()
+        {
+            GameEventSystem.ThrowEvent(GameEventType.SaveableObjectUpdateFinished);
         }
 
         private void OnTerrainUpdateFinished(GameEventParam obj)

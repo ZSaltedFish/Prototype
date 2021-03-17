@@ -32,9 +32,17 @@ namespace GameToolComponents
 
         public List<StringObjectPair> RefList;
 
-        private Dictionary<string, Object> _ref = new Dictionary<string, Object>();
+        private Dictionary<string, Object> _ref = null;
+        private bool _isInited => _ref != null;
         public void Awake()
         {
+            Init();
+        }
+
+        public void Init()
+        {
+            if (_isInited) return;
+            _ref = new Dictionary<string, Object>();
             foreach (var item in RefList)
             {
                 _ref.Add(item.Key, item.Value);
@@ -43,12 +51,27 @@ namespace GameToolComponents
 
         public T Get<T>(string name) where T : Object
         {
+            Init();
             return _ref[name] as T;
         }
 
-        public int Count => _ref.Count;
+        public int Count => RefList.Count;
 
-        public List<string> Keys => new List<string>(_ref.Keys);
-        public List<Object> Values => new List<Object>(_ref.Values);
+        public List<string> Keys
+        {
+            get
+            {
+                Init();
+                return new List<string>(_ref.Keys);
+            }
+        }
+        public List<Object> Values
+        {
+            get
+            {
+                Init();
+                return new List<Object>(_ref.Values);
+            }
+        }
     }
 }

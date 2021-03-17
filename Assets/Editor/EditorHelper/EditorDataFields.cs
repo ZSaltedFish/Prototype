@@ -45,7 +45,7 @@ namespace EditorHelper
         [MenuItem("Tools/批量操作/Init输入")]
         public static void Init()
         {
-            ExtendEditor.EditorReflect.Init();
+            //ExtendEditor.EditorReflect.Init();
             Type t = typeof(EditorDataFields);
             _type2Infos.Clear();
             MethodInfo[] methods = t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);

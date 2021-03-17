@@ -5,6 +5,8 @@
         GameEventInitFinished,
         PlayerUnitCreated,
         TerrainUpdateFinished,
-        TextureMapInitFinished
+        TextureMapInitFinished,
+        SaveableObjectUpdateFinished,
+        SaveableObjectRegister
     }
 }
