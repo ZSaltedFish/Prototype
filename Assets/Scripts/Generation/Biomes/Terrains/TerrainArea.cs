@@ -42,7 +42,7 @@ namespace Generator
         {
         }
 
-        private IEnumerator ExMap(Vector3 wp, List<Biome> biomes)
+        private IEnumerator ExMap(Vector3 wp)
         {
             SrcTerrain.transform.position = WorldPoint;
 
@@ -192,7 +192,7 @@ namespace Generator
 
         private bool IsEnuerator()
         {
-            if (_count == TerrainGenerator.UPDATE_COUNT)
+            if (_count == BiomeGenerator.INSTANCE.UpdateCoroutineCount)
             {
                 _count = 0;
                 return true;
@@ -226,7 +226,7 @@ namespace Generator
 
         public override IEnumerator OnAreaLoadEnum()
         {
-            yield return ExMap(WorldPoint, Biomes);
+            yield return ExMap(WorldPoint);
         }
 
         public float GetHigh(Vector3 pos)
@@ -237,6 +237,18 @@ namespace Generator
             int y = (int)(delta.z / Height * _size);
 
             return SrcTerrain.terrainData.GetHeight(x, y);
+        }
+
+        public float GetDot(Vector3 pos)
+        {
+            Vector3 p = Index2WorldPoint();
+            Vector3 delta = pos - p;
+
+            float dx = delta.x / _size;
+            float dy = delta.z / _size;
+            Vector3 normal = SrcTerrain.terrainData.GetInterpolatedNormal(dx, dy);
+            float dot = Vector3.Dot(normal, Vector3.up) * Mathf.Rad2Deg;
+            return dot;
         }
     }
 }

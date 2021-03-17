@@ -5,7 +5,7 @@ namespace Generator
 {
     public class SaveableAreaManager : DynamicAreaController<SaveableArea>
     {
-        public SaveableAreaManager(float width, float height, float range) : base(width, height, range)
+        public SaveableAreaManager(float width, float height, float range) : base(width, height, range, range)
         {
 
         }

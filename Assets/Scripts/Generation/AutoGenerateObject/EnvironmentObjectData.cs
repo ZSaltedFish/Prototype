@@ -8,6 +8,7 @@ namespace Generator
         public float RockRarity;
 
         public GameObject[] TreeList;
+        public float MinTreeSize, MaxTreeSize;
         public float TreeRarity;
     }
 }

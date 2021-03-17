@@ -9,7 +9,7 @@ namespace GameToolComponents
     {
         public bool CoroutineRunning { get; private set; } = false;
         public float Width, Height;
-        public float MaxRange;
+        public float MaxRange, UpdateRange;
         /// <summary>
         /// 对象池模式
         /// </summary>
@@ -20,11 +20,12 @@ namespace GameToolComponents
         public Action OnUpdateFinished;
 
         private ObjectPoolPattern<T> _usingPool;
-        public DynamicAreaController(float width, float height, float maxRange)
+        public DynamicAreaController(float width, float height, float maxRange, float updateRange)
         {
             Width = width;
             Height = height;
             MaxRange = maxRange;
+            UpdateRange = updateRange;
 
             _usingPool = new ObjectPoolPattern<T>(PoolCreate);
         }
@@ -40,6 +41,14 @@ namespace GameToolComponents
             float yDist = Mathf.Abs(index1.y - index2.y) * Height;
 
             return xDist * xDist + yDist * yDist > MaxRange * MaxRange;
+        }
+
+        private bool OutoffUpdateRange(Vector2Int index1, Vector2Int index2)
+        {
+            float xDist = Mathf.Abs(index1.x - index2.x) * Width;
+            float yDist = Mathf.Abs(index1.y - index2.y) * Height;
+
+            return xDist * xDist + yDist * yDist > UpdateRange * UpdateRange;
         }
 
         public Vector2Int WorldPoint2AreaIndex(Vector3 worldPoint)
@@ -93,7 +102,7 @@ namespace GameToolComponents
                 for (int y = -yMax; y <= yMax; ++y)
                 {
                     Vector2Int wIndex = new Vector2Int(centerIndex.x + x, centerIndex.y + y);
-                    if (!OutoffRange(wIndex, centerIndex) && !LoadingArea.ContainsKey(wIndex))
+                    if (!OutoffUpdateRange(wIndex, centerIndex) && !LoadingArea.ContainsKey(wIndex))
                     {
                         T area;
                         if (!ObjectPoolMode)
@@ -160,7 +169,7 @@ namespace GameToolComponents
                 for (int y = -yMax; y <= yMax; ++y)
                 {
                     Vector2Int wIndex = new Vector2Int(centerIndex.x + x, centerIndex.y + y);
-                    if (!OutoffRange(wIndex, centerIndex) && !LoadingArea.ContainsKey(wIndex))
+                    if (!OutoffUpdateRange(wIndex, centerIndex) && !LoadingArea.ContainsKey(wIndex))
                     {
                         T area;
                         if (!ObjectPoolMode)

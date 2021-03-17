@@ -8,7 +8,7 @@ namespace Generator
     {
         public Action<EnvironmentObjectArea> OnNewAreaLunch;
         public EnvironmentAreaController(float width, float height, float maxRange) 
-            : base(width, height, maxRange)
+            : base(width, height, maxRange, maxRange)
         {
         }
 

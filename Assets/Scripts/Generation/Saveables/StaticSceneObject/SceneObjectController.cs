@@ -9,7 +9,7 @@ namespace Generator
     {
         private Dictionary<Vector2Int, List<SceneObject>> _dict;
         public SceneObjectController(float width, float height, float maxRange,
-            ReferenceCollector collector) : base(width, height, maxRange)
+            ReferenceCollector collector) : base(width, height, maxRange, maxRange)
         {
             _dict = new Dictionary<Vector2Int, List<SceneObject>>();
             List<string> names = collector.Keys;

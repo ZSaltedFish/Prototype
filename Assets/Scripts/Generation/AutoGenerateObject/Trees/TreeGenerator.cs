@@ -61,6 +61,16 @@ namespace Generator
                 worldPoint.y = high;
             }
 
+            if (!BiomeGenerator.INSTANCE.TryGetDot(worldPoint, out float dot))
+            {
+                return;
+            }
+
+            if (dot < 40)
+            {
+                return;
+            }
+
             if (curBiome == null || curBiome.EnviromentData.TreeList.Length == 0 || IsBlocked(worldPoint))
             {
                 return;
@@ -79,7 +89,9 @@ namespace Generator
             GameObject tree = trees[index];
             GameObject treeIndstance = GetTree(tree);
             treeIndstance.transform.position = worldPoint;
-            float scale = rad.Next(500, 5000) / 1000f;
+            float scale = Mathf.Lerp(curBiome.EnviromentData.MinTreeSize,
+                curBiome.EnviromentData.MaxTreeSize,
+                rad.Next(0, 10000) / 10000f);
             treeIndstance.transform.localScale = new Vector3(scale, scale, scale);
             treeIndstance.transform.SetParent(transform);
             _activityTrees.Add(treeIndstance.GetInstanceID(), treeIndstance);

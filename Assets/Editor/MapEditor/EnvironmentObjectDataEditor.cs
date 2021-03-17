@@ -22,6 +22,8 @@ namespace GameEditor
             {
                 EditorGUILayout.LabelField("树木参数");
                 _target.TreeRarity = EditorGUILayout.Slider("密度", _target.TreeRarity, 0, 0.5f);
+                _target.MinTreeSize = EditorGUILayout.FloatField("Min Scale", _target.MinTreeSize);
+                _target.MaxTreeSize = EditorGUILayout.FloatField("Max Scale", _target.MaxTreeSize);
                 _target.TreeList = EditorDataFields.EditorArrayField("模型", _target.TreeList);
             }
 

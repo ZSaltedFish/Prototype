@@ -8,6 +8,7 @@ namespace Generator
 {
     public class BiomeGenerator : MonoBehaviour
     {
+        public int UpdateCoroutineCount = 50000;
         public int Seed = 10000;
         public static BiomeGenerator INSTANCE { get; private set; }
 
@@ -15,6 +16,8 @@ namespace Generator
         public int TerrainWidth, TerrainHeight;
         public GameObject DefaultTerrain;
         public TerrainData DefaultTerrainData;
+        public float MaxRange = 5000;
+        public float UpdateRange = 3500;
         //private MapManager _map;
         private TerrainGenerator _terrainGenerator;
         public void Awake()
@@ -31,8 +34,10 @@ namespace Generator
 
         public void Start()
         {
+            Debug.Log($"{MaxRange}, {UpdateRange}");
             _terrainGenerator = new TerrainGenerator(DefaultTerrainData, DefaultTerrain,
-                TerrainWidth, TerrainHeight, Biomes);
+                TerrainWidth, TerrainHeight, MaxRange, UpdateRange);
+            UpdateCoroutineCount = int.MaxValue;
             StartCoroutine(_terrainGenerator.UpdateEnum(ActorManager.GetPlayerLocation()));
         }
 
@@ -55,6 +60,7 @@ namespace Generator
         {
             if (!_terrainGenerator.CoroutineRunning)
             {
+                UpdateCoroutineCount = 20000;
                 StartCoroutine(_terrainGenerator.UpdateEnum(ActorManager.GetPlayerLocation()));
             }
         }
@@ -67,6 +73,11 @@ namespace Generator
         public bool TryGetHigh(Vector3 pos, out float high)
         {
             return _terrainGenerator.TryGetHigh(pos, out high);
+        }
+
+        public bool TryGetDot(Vector3 pos, out float dot)
+        {
+            return _terrainGenerator.TryGetDotSpecifiedLocation(pos, out dot);
         }
     }
 }

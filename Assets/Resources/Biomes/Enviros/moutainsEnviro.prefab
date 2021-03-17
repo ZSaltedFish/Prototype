@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8941332344090911544
+--- !u!1 &8809878592802238163
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2060386198898995525}
-  - component: {fileID: 1065332556097767058}
+  - component: {fileID: 4335967418261101651}
+  - component: {fileID: 3962757651654809132}
   m_Layer: 0
-  m_Name: EnvironmentSystem
+  m_Name: moutainsEnviro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2060386198898995525
+--- !u!4 &4335967418261101651
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8941332344090911544}
+  m_GameObject: {fileID: 8809878592802238163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,20 +31,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1065332556097767058
+--- !u!114 &3962757651654809132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8941332344090911544}
+  m_GameObject: {fileID: 8809878592802238163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c270274fb0d9894b8ac5464ada7ac3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 672f9fd0bdcd44e4f95211e51e228bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 500
-  Height: 500
-  Range: 1000
-  Size: 50
-  SceneObjects: []
+  RockList:
+  - {fileID: 3765385019490023698, guid: d9ce571db0826b2419633a4722383225, type: 3}
+  RockRarity: 0
+  TreeList:
+  - {fileID: 7760694254059983747, guid: 38b3b72a6b06d6a478a56ab25c163621, type: 3}
+  MinTreeSize: 1.5
+  MaxTreeSize: 2
+  TreeRarity: 0.2

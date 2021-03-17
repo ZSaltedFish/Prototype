@@ -6,7 +6,7 @@ namespace Generator
     public class TreeAreaManager : DynamicAreaController<TreeArea>
     {
         public int Size;
-        public TreeAreaManager(float width, float height, float maxRange) : base(width, height, maxRange)
+        public TreeAreaManager(float width, float height, float maxRange) : base(width, height, maxRange, maxRange)
         {
         }
 

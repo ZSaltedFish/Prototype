@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29349cd7d71a5f841ab957b223460495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpdateCoroutineCount: 50000
   Seed: 10000
   Biomes:
   - {fileID: 5201585069013032237, guid: 602af6a54e3a93e49b55ff158232c698, type: 3}
@@ -54,6 +55,8 @@ MonoBehaviour:
   TerrainHeight: 1000
   DefaultTerrain: {fileID: 3271709859574126781}
   DefaultTerrainData: {fileID: 15600000, guid: 88df2f42520c7c74b811516392cbbd92, type: 2}
+  MaxRange: 5000
+  UpdateRange: 3500
   MaxTimeDelta: 5
 --- !u!1 &3271709859574126781
 GameObject:

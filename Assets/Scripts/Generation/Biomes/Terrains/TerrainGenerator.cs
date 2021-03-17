@@ -8,9 +8,6 @@ namespace Generator
 {
     public partial class TerrainGenerator : DynamicAreaController<TerrainArea>, IDisposable
     {
-
-        public const int UPDATE_COUNT = 50000;
-        public const float VIEW_DIST = 2000;
         public const string CLONE_TERRAIN_NAME = "TerrainDefaultClone";
         public readonly TerrainData DefaultTerrainData;
 
@@ -18,12 +15,11 @@ namespace Generator
         private GameObject _srcTerrain;
 
         private int _alphaMapCount;
-        private List<Biome> _biomes;
         private int _count = 0;
         private Vector2 _maskOffset;
 
-        public TerrainGenerator(TerrainData defaultData, GameObject srcTerrain, int width, int height, List<Biome> biomes) 
-            : base(width, height, VIEW_DIST)
+        public TerrainGenerator(TerrainData defaultData, GameObject srcTerrain, int width, int height, float maxRange, float updateRange) 
+            : base(width, height, maxRange, updateRange)
         {
             ObjectPoolMode = true;
             _maskOffset = new Vector2(Random.Range(-2, 2), Random.Range(-2, 2));
@@ -31,7 +27,6 @@ namespace Generator
             InitAlphaTexture();
             _srcTerrain = srcTerrain;
             _srcTerrain.SetActive(false);
-            _biomes = biomes;
 
             OnUpdateFinished = OnUpdateOver;
         }
@@ -57,7 +52,6 @@ namespace Generator
             TerrainArea data = new TerrainArea(
                 _count, _srcTerrain, DefaultTerrainData, Width, Height, arg)
             {
-                Biomes = _biomes,
                 AlphaMapCount = _alphaMapCount,
                 MaskOffset = _maskOffset
             };
@@ -88,6 +82,19 @@ namespace Generator
             }
 
             biome = area.GetPosType(pos);
+            return true;
+        }
+
+        public bool TryGetDotSpecifiedLocation(Vector3 pos, out float dot)
+        {
+            dot = 0;
+            Vector2Int index = WorldPoint2AreaIndex(pos);
+            if (!LoadingArea.TryGetValue(index, out TerrainArea area))
+            {
+                return false;
+            }
+
+            dot = area.GetDot(pos);
             return true;
         }
         #endregion
