@@ -146,10 +146,10 @@ Material:
     - _BumpScale: 1
     - _COVERAGE: 0
     - _Coverage: 0
-    - _CoverageContrast: 0.592
-    - _CoverageFade: 0.69
+    - _CoverageContrast: 0.641
+    - _CoverageFade: 0.442
     - _CoverageFade1: 0.4
-    - _CoverageLevel: -2.11
+    - _CoverageLevel: -1.94
     - _CoverageLevel1: 0.3
     - _CoverageOverlayType: 0
     - _CoverageSmoothness: 0.2

@@ -23,12 +23,12 @@ Material:
   m_Name: AN_Flowers_Purple
   m_Shader: {fileID: -6465566751694194690, guid: a9c5ece5af2ba894c8f9a583d9ce1c83, type: 3}
   m_ShaderKeywords: BOOLEAN_67693E02B2D24F0CADF2CF97010CDA44_ON BOOLEAN_EAACD360EB5D478C8859FE12C2049844_ON
-    ENUM_COLOR2OVERLAYTYPE_A _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
+    ENUM_COLOR2OVERLAYTYPE_A _ALPHATEST_ON _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
     _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2750
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -117,9 +117,9 @@ Material:
     - BOOLEAN_EAACD360EB5D478C8859FE12C2049844: 1
     - ENUM_COLOR2OVERLAYTYPE: 0
     - Vector1_d9d3c907aa16421d9f98ec738832216c: 1
-    - Vector1_e14590d3a5f64a6eb17723e78bd901f1: 0.1
+    - Vector1_e14590d3a5f64a6eb17723e78bd901f1: 5
     - _AddPrecomputedVelocity: 0
-    - _AlphaCutoffEnable: 0
+    - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
@@ -205,7 +205,7 @@ Material:
     - _WindWavesScale: 0.3
     - _WorldNoiseScale: 1
     - _ZTestDepthEqualForOpaque: 4
-    - _ZTestGBuffer: 4
+    - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
     - _ZWrite: 0
     - __dirty: 0

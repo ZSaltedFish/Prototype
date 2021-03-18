@@ -9,12 +9,13 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: AN_WaterLily
   m_Shader: {fileID: -6465566751694194690, guid: a9c5ece5af2ba894c8f9a583d9ce1c83, type: 3}
-  m_ShaderKeywords: ENUM_COLOR2OVERLAYTYPE_A _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
+  m_ShaderKeywords: BOOLEAN_67693E02B2D24F0CADF2CF97010CDA44_ON BOOLEAN_EAACD360EB5D478C8859FE12C2049844_ON
+    ENUM_COLOR2OVERLAYTYPE_A _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
     _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2750
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -94,12 +95,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - BOOLEAN_67693E02B2D24F0CADF2CF97010CDA44: 0
+    - BOOLEAN_67693E02B2D24F0CADF2CF97010CDA44: 1
     - BOOLEAN_C82DDCA912304ED0908C02B3E36BE4E0: 0
-    - BOOLEAN_EAACD360EB5D478C8859FE12C2049844: 0
+    - BOOLEAN_EAACD360EB5D478C8859FE12C2049844: 1
     - ENUM_COLOR2OVERLAYTYPE: 0
     - Vector1_d9d3c907aa16421d9f98ec738832216c: 1
-    - Vector1_e14590d3a5f64a6eb17723e78bd901f1: 0.1
+    - Vector1_e14590d3a5f64a6eb17723e78bd901f1: 1
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
@@ -185,7 +186,7 @@ Material:
     - _ZWrite: 0
     - __dirty: 0
     m_Colors:
-    - Vector2_5884b652eea04606afe15bfb8f7e839e: {r: 0.1, g: 0, b: 0, a: 0}
+    - Vector2_5884b652eea04606afe15bfb8f7e839e: {r: 0, g: 0.1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color1: {r: 0.32663473, g: 0.55899996, b: 0.09894297, a: 1}
     - _Color2: {r: 0.8565209, g: 1, b: 0, a: 1}
