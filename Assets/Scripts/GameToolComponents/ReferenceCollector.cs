@@ -11,7 +11,9 @@ namespace GameToolComponents
         [Serializable]
         public class StringObjectPair
         {
+            [SerializeField]
             public string Key;
+            [SerializeField]
             public Object Value;
 
             public StringObjectPair(string key)
@@ -20,39 +22,14 @@ namespace GameToolComponents
             }
         }
 
-        public List<T> GetAll<T>() where T : Object
-        {
-            List<T> list = new List<T>();
-            foreach (T item in _ref.Values)
-            {
-                list.Add(item);
-            }
-            return list;
-        }
-
         public List<StringObjectPair> RefList;
-
-        private Dictionary<string, Object> _ref = null;
-        private bool _isInited => _ref != null;
         public void Awake()
         {
-            Init();
-        }
-
-        public void Init()
-        {
-            if (_isInited) return;
-            _ref = new Dictionary<string, Object>();
-            foreach (var item in RefList)
-            {
-                _ref.Add(item.Key, item.Value);
-            }
         }
 
         public T Get<T>(string name) where T : Object
         {
-            Init();
-            return _ref[name] as T;
+            return (T)RefList.Find(value => value.Key == name).Value;
         }
 
         public int Count => RefList.Count;
@@ -61,16 +38,24 @@ namespace GameToolComponents
         {
             get
             {
-                Init();
-                return new List<string>(_ref.Keys);
+                List<string> names = new List<string>();
+                foreach (var item in RefList)
+                {
+                    names.Add(item.Key);
+                }
+                return names;
             }
         }
         public List<Object> Values
         {
             get
             {
-                Init();
-                return new List<Object>(_ref.Values);
+                List<Object> names = new List<Object>();
+                foreach (var item in RefList)
+                {
+                    names.Add(item.Value);
+                }
+                return names;
             }
         }
     }

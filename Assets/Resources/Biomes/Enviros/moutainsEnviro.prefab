@@ -44,10 +44,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RockList:
-  - {fileID: 3765385019490023698, guid: d9ce571db0826b2419633a4722383225, type: 3}
-  RockRarity: 0
+  - {fileID: 2638098956592556692, guid: 50f3c03dbfedb5143b333d7f836ea75d, type: 3}
+  - {fileID: 6965956484264118601, guid: 4a691fc28e6ddb341bf0fbc1647d56d3, type: 3}
+  - {fileID: 7411338079306338954, guid: 27544902da1189444a3b7eb4c0a96acd, type: 3}
+  RockRarity: 0.0065
   TreeList:
-  - {fileID: 7760694254059983747, guid: 38b3b72a6b06d6a478a56ab25c163621, type: 3}
+  - {fileID: 309865362510848651, guid: da418bb638856e046abc0e29ca2b21f4, type: 3}
+  - {fileID: 4115416405751721923, guid: 6fd6fb0df7e29c641acd0ba3d8d210d3, type: 3}
+  - {fileID: 6458907534031036834, guid: 8027a374f0ceca94480a5bc31377188b, type: 3}
+  - {fileID: 4782707518191193687, guid: bbe70efb5b465c945a55365ca5245b0a, type: 3}
+  - {fileID: 4655554399499489375, guid: 3b54291338335ae48b5f5b5f3b6eb606, type: 3}
+  - {fileID: 7401005632366886789, guid: e43d88a1db43bc841ade02c7f22aa796, type: 3}
   MinTreeSize: 1.5
   MaxTreeSize: 2
-  TreeRarity: 0.2
+  TreeRarity: 0.5
