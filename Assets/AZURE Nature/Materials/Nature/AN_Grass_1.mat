@@ -8,17 +8,21 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: AN_Grass_1
-  m_Shader: {fileID: 4800000, guid: 0154318cd2c5a3747a66420b5d885dd5, type: 3}
-  m_ShaderKeywords: _COLOR2ENABLE_ON _COLOR2ON_ON _COLOR2OVERLAYTYPE2_UV_BASED _COLOR2OVERLAYTYPE_UV_BASED
-    _COLOR2TYPE_VERTICALGRADIENT _FIXTHEBASEOFFOLIAGE2_ON _FIXTHEBASEOFFOLIAGE_ON
-    _HIGHLIGHTWIND_ON _KEYWORD0_ON _SNOWOVERLAYTYPE2_WORLD_NORMAL_BASED _SNOWOVERLAYTYPE_UV_BASED
-    _TREETYPE_BROADLEAF _WIND2_ON _WIND_ON
+  m_Shader: {fileID: -6465566751694194690, guid: a9c5ece5af2ba894c8f9a583d9ce1c83, type: 3}
+  m_ShaderKeywords: BOOLEAN_67693E02B2D24F0CADF2CF97010CDA44_ON BOOLEAN_EAACD360EB5D478C8859FE12C2049844_ON
+    ENUM_COLOR2OVERLAYTYPE_A _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
+    _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - RayTracingPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - TransparentDepthPrepass
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -102,12 +106,41 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - BOOLEAN_67693E02B2D24F0CADF2CF97010CDA44: 1
+    - BOOLEAN_C82DDCA912304ED0908C02B3E36BE4E0: 0
+    - BOOLEAN_EAACD360EB5D478C8859FE12C2049844: 1
+    - ENUM_COLOR2OVERLAYTYPE: 0
+    - Vector1_d9d3c907aa16421d9f98ec738832216c: 1
+    - Vector1_e14590d3a5f64a6eb17723e78bd901f1: 0.1
+    - _AddPrecomputedVelocity: 0
+    - _AffectAlbedo: 1
+    - _AffectMetal: 1
+    - _AffectNormal: 1
+    - _AffectSmoothness: 1
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 10
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _BlendMode: 0
     - _BumpScale: 1
     - _Color2: 0
     - _Color2Enable: 1
     - _Color2Enable2: 0
-    - _Color2Fade: 0.64
+    - _Color2Fade: -0.343
     - _Color2Fade2: 0.7
     - _Color2Int: 0.6
     - _Color2Intensity: 0.421
@@ -118,9 +151,26 @@ Material:
     - _Color2OverlayType2: 1
     - _Color2Power: 1.76
     - _Color2Type: 0
-    - _Cutoff: 0.3
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _Cutoff: 0.175
+    - _DecalColorMask0: 15
+    - _DecalColorMask1: 15
+    - _DecalColorMask2: 11
+    - _DecalColorMask3: 8
+    - _DecalMeshBiasType: 0
+    - _DecalMeshDepthBias: 0
+    - _DecalMeshViewBias: 0
+    - _DecalStencilRef: 16
+    - _DecalStencilWriteMask: 16
+    - _DepthOffsetEnable: 0
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedNormalMode: 2
+    - _DrawOrder: 0
+    - _DstBlend: 10
+    - _EnableBlendModePreserveSpecularLighting: 1
+    - _EnableFogOnTransparent: 1
     - _Fixthebaseoffoliage: 1
     - _Fixthebaseoffoliage2: 1
     - _Float0: -2
@@ -134,10 +184,17 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OpaqueCullMode: 2
     - _Parallax: 0.02
+    - _RayTracing: 0
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
+    - _RenderQueueType: 3
+    - _RequireSplitLighting: 0
     - _SNOW: 0
     - _SNOW2: 0
-    - _Smoothness: 0.1
+    - _Smoothness: 0.437
     - _Smoothness2: 0
     - _SmoothnessTextureChannel: 0
     - _Snow: 0
@@ -150,14 +207,34 @@ Material:
     - _SnowOverlayType2: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SupportDecals: 1
+    - _SurfaceType: 1
     - _TransAmbient: 0
     - _TransDirect: 1
     - _TransNormalDistortion: 0
     - _TransScattering: 4
     - _TransShadow: 1
     - _Translucency: 2
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
     - _TreeType: 0
     - _UVSec: 0
+    - _UseShadowThreshold: 0
     - _WIND: 1
     - _WIND2: 1
     - _Wind: 1
@@ -169,14 +246,33 @@ Material:
     - _WindWavesScale: 0.3
     - _WindWavesScale2: 0.25
     - _WorldNoiseScale: 0.098
-    - _ZWrite: 1
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 0
     - __dirty: 0
     m_Colors:
+    - Vector2_5884b652eea04606afe15bfb8f7e839e: {r: 0.1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color0: {r: 0.7058823, g: 0.48230892, b: 0.12156857, a: 0}
-    - _Color1: {r: 0.22080034, g: 0.52156866, b: 0.050980385, a: 0}
-    - _Color2: {r: 0.40064174, g: 0.5660378, b: 0.06140977, a: 0}
+    - _Color1: {r: 0.22080031, g: 0.5215686, b: 0.05098036, a: 1}
+    - _Color2: {r: 0.4006417, g: 0.5660378, b: 0.06140975, a: 1}
     - _Color4: {r: 0.3156659, g: 0.5377358, b: 0.2663314, a: 0}
     - _Color5: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SnowColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &5478173237568634879
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 11
