@@ -391,5 +391,19 @@ namespace EditorHelper
             }
             return newList;
         }
+
+        public static string SaveFilePathSelected(string desc, string path, string defaultName)
+        {
+            using (new EditorHorizontalLayout(EditorStyles.helpBox))
+            {
+                path = EditorDataField(desc, path);
+                if (GUILayout.Button("选择"))
+                {
+                    string file = EditorUtility.OpenFolderPanel(desc, path, defaultName);
+                    return file;
+                }
+                return path;
+            }
+        }
     }
 }

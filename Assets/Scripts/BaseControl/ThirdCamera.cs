@@ -15,21 +15,23 @@ namespace Control
         public float Gravity = -9.8f;
 
         private Vector3 _chacatorRotateAngle;
+        private float _curDistance;
 
         public void Start()
         {
             _chacatorRotateAngle = Vector3.zero;
             SrcCamera = GetComponentInChildren<Camera>();
+            _curDistance = -SrcCamera.transform.localPosition.z;
         }
         public void Update()
         {
             Move();
             RotateAngle();
-            CameraDistance();
         }
 
         public void LateUpdate()
         {
+            CameraDistance();
             UpdateCamera();
         }
 
@@ -49,7 +51,8 @@ namespace Control
         private void CameraDistance()
         {
             float value = Input.GetAxis("Mouse ScrollWheel");
-            SrcCamera.transform.localPosition += Vector3.forward * value * CameraSpeed * Time.deltaTime;
+            _curDistance += value * CameraSpeed * Time.deltaTime;
+            SrcCamera.transform.localPosition = Vector3.forward * _curDistance;
         }
 
         private void UpdateCamera()
@@ -69,6 +72,18 @@ namespace Control
             euler.z = 0;
 
             transform.eulerAngles = euler;
+
+            Ray ray = new Ray(LockUpObject.transform.position, -SrcCamera.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, -_curDistance, ~(1 << 3)))
+            {
+                if (hit.collider.gameObject != SrcCamera.gameObject)
+                {
+                    float dist = Vector3.Distance(hit.point, LockUpObject.transform.position) - 0.05f;
+                    Vector3 p = new Vector3(0, 0, -dist);
+                    SrcCamera.transform.localPosition = p;
+                    SrcCamera.transform.LookAt(LockUpObject.transform.position);
+                }
+            }
         }
 
         private float _ySpeed = 0;

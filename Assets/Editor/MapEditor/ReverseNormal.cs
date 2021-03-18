@@ -10,57 +10,113 @@ namespace Generator
 {
 	public class ReverseNormal : EditorWindow
 	{
-		private GameObject SrcObj;
+		private const string EX_NAME = "obj";
+		private string _savePath;
+		private string _name;
+		private GameObject _srcObj;
 		public void OnGUI()
 		{
-			SrcObj = EditorDataFields.EditorDataField("引用Obj", SrcObj);
+			_srcObj = EditorDataFields.EditorDataField("引用Obj", _srcObj);
+			_name = EditorDataFields.EditorDataField("文件名", _name);
+			_savePath = EditorDataFields.SaveFilePathSelected("保存路径", _savePath, EX_NAME);
+
 			if (GUILayout.Button("生成"))
 			{
-				MeshFilter meshfilter = SrcObj.GetComponent<MeshFilter>();
-				Mesh mesh = meshfilter.sharedMesh;
+				MeshFilter[] filters = _srcObj.GetComponentsInChildren<MeshFilter>();
 				Mesh newMesh = new Mesh
 				{
-					name = $"ReverseNormal{mesh.name}",
-					vertices = new Vector3[mesh.vertices.Length],
-					triangles = new int[mesh.triangles.Length],
-					uv = new Vector2[mesh.uv.Length],
-					tangents = new Vector4[mesh.tangents.Length],
-					normals = new Vector3[mesh.normals.Length],
-					uv2 = new Vector2[mesh.uv2.Length],
+					name = _name,
+					vertices = new Vector3[0],
+					triangles = new int[0],
+					uv = new Vector2[0],
+					tangents = new Vector4[0],
+					normals = new Vector3[0],
+					uv2 = new Vector2[0],
 				};
-				//            Array.Copy(mesh.vertices, newMesh.vertices, mesh.vertices.Length);
-				//Array.Copy(mesh.triangles, newMesh.triangles, mesh.triangles.Length);
-				//Array.Copy(mesh.uv, newMesh.uv, mesh.uv.Length);
-				//Array.Copy(mesh.tangents, newMesh.tangents, mesh.tangents.Length);
-				//Array.Copy(mesh.uv2, newMesh.uv2, mesh.uv2.Length);
 
-				newMesh.vertices = CloneArray(mesh.vertices);
-				newMesh.triangles = CloneArray(mesh.triangles);
-				newMesh.uv = CloneArray(mesh.uv);
-				newMesh.tangents = CloneArray(mesh.tangents);
-				newMesh.uv2 = CloneArray(mesh.uv2);
+				foreach (MeshFilter filter in filters)
+				{
+					CombineMesh(filter, newMesh);
+				}
 
-				newMesh.bounds = new Bounds(mesh.bounds.center, mesh.bounds.size);
-				Vector3[] revNor = new Vector3[mesh.normals.Length];
-                for (int i = 0; i < mesh.normals.Length; ++i)
+				using (FileStream file = new FileStream($"{_savePath}\\{_name}.{EX_NAME}", FileMode.Create))
                 {
-                    Vector3 normal = -mesh.normals[i];
-					revNor[i] = normal;
-                }
-				newMesh.normals = revNor;
-                meshfilter.sharedMesh = newMesh;
-				using (FileStream file = new FileStream($"Assets/Model/ReverseNormal_{SrcObj.name}.obj", FileMode.Create))
-                {
-					string data = MeshToString(meshfilter, new Vector3(-1f, 1f, 1f));
+					string data = MeshToString(newMesh, new Vector3(-1f, 1f, 1f));
 					StreamWriter writer = new StreamWriter(file);
 					writer.Write(data);
 					writer.Close();
                 }
 
 				DestroyImmediate(newMesh);
-				meshfilter.sharedMesh = mesh;
 				AssetDatabase.Refresh();
 			}
+		}
+
+		private void CombineMesh(MeshFilter meshFilter, Mesh destMesh)
+        {
+			Mesh srcMesh = meshFilter.sharedMesh;
+			int[] triangles = new int[srcMesh.triangles.Length + destMesh.triangles.Length];
+
+			List<Vector3> vertices = new List<Vector3>();
+
+            for (int i = 0; i < srcMesh.vertices.Length; ++i)
+			{
+				Vector3 subPoint = meshFilter.transform.TransformPoint(srcMesh.vertices[i]);
+				//Vector3 localPoint = _srcObj.transform.TransformPoint(subPoint);
+				vertices.Add(subPoint);
+            }
+			vertices.AddRange(destMesh.vertices);
+			List<Vector2> uvs = new List<Vector2>(srcMesh.uv);
+			uvs.AddRange(destMesh.uv);
+			List<Vector2> uv2s = new List<Vector2>(srcMesh.uv2);
+			uv2s.AddRange(destMesh.uv2);
+			List<Vector4> tangents = new List<Vector4>(srcMesh.tangents);
+			tangents.AddRange(destMesh.tangents);
+			List<Vector3> nomrals = new List<Vector3>(srcMesh.normals);
+			nomrals.AddRange(destMesh.normals);
+
+            for (int i = 0; i < srcMesh.triangles.Length; ++i)
+            {
+				triangles[i] = srcMesh.triangles[i];
+            }
+
+            for (int i = 0; i < destMesh.triangles.Length; ++i)
+            {
+				int destTrianglesIndex = i + srcMesh.triangles.Length;
+				int dvIndex = destMesh.triangles[i] + srcMesh.vertices.Length;
+				triangles[destTrianglesIndex] = dvIndex;
+            }
+
+			destMesh.vertices = vertices.ToArray();
+			destMesh.triangles = triangles;
+			destMesh.uv = uvs.ToArray();
+			destMesh.uv2 = uv2s.ToArray();
+			destMesh.tangents = tangents.ToArray();
+			destMesh.normals = nomrals.ToArray();
+			destMesh.RecalculateBounds();
+        }
+
+		private Mesh CloneMesh(Mesh mesh)
+		{
+			Mesh newMesh = new Mesh
+			{
+				name = $"ReverseNormal{mesh.name}",
+				vertices = new Vector3[mesh.vertices.Length],
+				triangles = new int[mesh.triangles.Length],
+				uv = new Vector2[mesh.uv.Length],
+				tangents = new Vector4[mesh.tangents.Length],
+				normals = new Vector3[mesh.normals.Length],
+				uv2 = new Vector2[mesh.uv2.Length],
+			};
+
+			newMesh.vertices = CloneArray(mesh.vertices);
+			newMesh.triangles = CloneArray(mesh.triangles);
+			newMesh.uv = CloneArray(mesh.uv);
+			newMesh.tangents = CloneArray(mesh.tangents);
+			newMesh.uv2 = CloneArray(mesh.uv2);
+			newMesh.normals = CloneArray(mesh.normals);
+			newMesh.bounds = new Bounds(mesh.bounds.center, mesh.bounds.size);
+			return newMesh;
 		}
 
 		private static T[] CloneArray<T>(T[] arr)
@@ -73,18 +129,16 @@ namespace Generator
 			return nArr as T[];
         }
 
-		[MenuItem("Tools/ReverseNormal")]
+		[MenuItem("Tools/合并Mesh")]
 		public static void Open()
 		{
 			GetWindow<ReverseNormal>().Show();
 		}
 
-		private static string MeshToString(MeshFilter mf, Vector3 scale)
+		private static string MeshToString(Mesh mesh, Vector3 scale)
 		{
-			Mesh mesh = mf.sharedMesh;
-			Material[] sharedMaterials = mf.GetComponent<Renderer>().sharedMaterials;
-			Vector2 textureOffset = mf.GetComponent<Renderer>().sharedMaterial.GetTextureOffset("_MainTex");
-			Vector2 textureScale = mf.GetComponent<Renderer>().sharedMaterial.GetTextureScale("_MainTex");
+			Vector2 textureOffset = Vector2.zero;
+			Vector2 textureScale = Vector2.one;
 
 			StringBuilder stringBuilder = new StringBuilder().Append("mtllib design.mtl")
 				.Append("\n")
