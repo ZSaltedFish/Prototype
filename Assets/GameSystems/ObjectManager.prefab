@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa11c332f69a70c41a6c4e319e9f0c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefList:
-  - Key: TestCharactor
-    Value: {fileID: 978049493274084501, guid: 340db63d51dbec645b26b203ab43ebaf, type: 3}
+  Names: []
+  Objects: []
 --- !u!114 &4810293945453603934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,4 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e91bbbb82f0778459a2bc491d90c579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefCol: {fileID: 1374329853283686161, guid: d96b344d433cb0b449e3a6e7a38baa47, type: 3}
+  RefCol: {fileID: 7742468977024004289, guid: d96b344d433cb0b449e3a6e7a38baa47, type: 3}

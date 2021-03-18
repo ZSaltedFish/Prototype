@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1054138806676090436}
-  - component: {fileID: 1374329853283686161}
+  - component: {fileID: 7742468977024004289}
   m_Layer: 0
   m_Name: SceneObjectCollector
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1374329853283686161
+--- !u!114 &7742468977024004289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,9 +40,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4882305894188294387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa11c332f69a70c41a6c4e319e9f0c42, type: 3}
+  m_Script: {fileID: 11500000, guid: 933710ae0c2e03d4d8ab6b12dd7e548e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefList:
-  - Key: MyTestSceneObject
-    Value: {fileID: 8029662414069911859, guid: 9a71ef75d802eb142ab5eab641525767, type: 3}
+  Objects:
+  - {fileID: 5220438754812830269, guid: 1149ab82742d0484ab36da92157db9d2, type: 3}

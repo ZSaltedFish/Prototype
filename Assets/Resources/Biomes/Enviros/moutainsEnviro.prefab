@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4335967418261101651}
   - component: {fileID: 3962757651654809132}
+  - component: {fileID: -3223766967152534534}
   m_Layer: 0
   m_Name: moutainsEnviro
   m_TagString: Untagged
@@ -58,3 +59,15 @@ MonoBehaviour:
   MinTreeSize: 1.5
   MaxTreeSize: 2
   TreeRarity: 0.5
+--- !u!114 &-3223766967152534534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809878592802238163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038d31c057d811e45b11695d573eb6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

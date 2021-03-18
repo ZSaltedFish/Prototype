@@ -9,13 +9,11 @@ namespace Generator
     {
         private Dictionary<Vector2Int, List<SceneObject>> _dict;
         public SceneObjectController(float width, float height, float maxRange,
-            ReferenceCollector collector) : base(width, height, maxRange, maxRange)
+            ListCollector collector) : base(width, height, maxRange, maxRange)
         {
             _dict = new Dictionary<Vector2Int, List<SceneObject>>();
-            List<string> names = collector.Keys;
-            foreach (string name in names)
+            foreach (GameObject sGo in collector.Objects)
             {
-                GameObject sGo = collector.Get<GameObject>(name);
                 if (sGo != null)
                 {
                     SceneObject so = sGo.GetComponent<SceneObject>();

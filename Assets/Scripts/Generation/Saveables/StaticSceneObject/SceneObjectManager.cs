@@ -7,7 +7,7 @@ namespace Generator
 {
     public class SceneObjectManager : MonoBehaviour
     {
-        public ReferenceCollector RefCol;
+        public ListCollector RefCol;
         public Dictionary<Vector2Int, List<SceneObject>> PosObjList;
 
         private Dictionary<string, SceneObject> _createdList;
@@ -29,16 +29,16 @@ namespace Generator
 
         private void RegisterData()
         {
-            foreach (string name in RefCol.Keys)
+            foreach (GameObject sGo in RefCol.Objects)
             {
-                GameObject sGo = RefCol.Get<GameObject>(name);
-                if (sGo != null)
+                if (sGo == null)
                 {
-                    SceneObject sObj = sGo.GetComponent<SceneObject>();
-                    if (sObj != null)
-                    {
-                        SaveableObjectManager.INSTANCE.Register(sObj.SceneObjectID, sObj.gameObject);
-                    }
+                    continue;
+                }
+                SceneObject sObj = sGo.GetComponent<SceneObject>();
+                if (sObj != null)
+                {
+                    SaveableObjectManager.INSTANCE.Register(sObj.SceneObjectID, sObj.gameObject);
                 }
             }
         }

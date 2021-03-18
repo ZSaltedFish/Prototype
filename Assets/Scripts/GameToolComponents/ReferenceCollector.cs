@@ -8,54 +8,77 @@ namespace GameToolComponents
     [Serializable]
     public class ReferenceCollector : MonoBehaviour
     {
-        [Serializable]
-        public class StringObjectPair
-        {
-            [SerializeField]
-            public string Key;
-            [SerializeField]
-            public Object Value;
-
-            public StringObjectPair(string key)
-            {
-                Key = key;
-            }
-        }
-
-        public List<StringObjectPair> RefList;
+        public List<string> Names = new List<string>();
+        public List<Object> Objects = new List<Object>();
         public void Awake()
         {
         }
 
         public T Get<T>(string name) where T : Object
         {
-            return (T)RefList.Find(value => value.Key == name).Value;
+            if (TryGetIndex(name, out int index))
+            {
+                return (T)Objects[index];
+            }
+            throw new KeyNotFoundException($"This is no key named {name}");
         }
 
-        public int Count => RefList.Count;
+        public int Count => Names.Count;
 
         public List<string> Keys
         {
             get
             {
-                List<string> names = new List<string>();
-                foreach (var item in RefList)
-                {
-                    names.Add(item.Key);
-                }
-                return names;
+                return new List<string>(Names);
             }
         }
         public List<Object> Values
         {
             get
             {
-                List<Object> names = new List<Object>();
-                foreach (var item in RefList)
+                return new List<Object>(Objects);
+            }
+        }
+
+        public void Remove(string name)
+        {
+            if (TryGetIndex(name, out int index))
+            {
+                Names.Remove(name);
+                Objects.RemoveAt(index);
+            }
+        }
+
+        public void Add(string name, Object value)
+        {
+            if (!TryGetIndex(name, out int index))
+            {
+                Names.Add(name);
+                Objects.Add(value);
+            }
+            throw new ArgumentException($"{name} is already existed");
+        }
+
+        private bool TryGetIndex(string name, out int index)
+        {
+            index = Names.IndexOf(name);
+            return index != -1;
+        }
+
+        public Object this[string name]
+        {
+            get { return Get<Object>(name); }
+            set
+            {
+                if (TryGetIndex(name, out int index))
                 {
-                    names.Add(item.Value);
+                    Objects[index] = value;
                 }
-                return names;
+                else
+                {
+                    Names.Add(name);
+                    Objects.Add(value);
+                }
             }
         }
     }

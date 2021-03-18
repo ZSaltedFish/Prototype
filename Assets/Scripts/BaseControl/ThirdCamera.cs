@@ -74,7 +74,7 @@ namespace Control
             transform.eulerAngles = euler;
 
             Ray ray = new Ray(LockUpObject.transform.position, -SrcCamera.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, -_curDistance, ~(1 << 3)))
+            if (Physics.Raycast(ray, out RaycastHit hit, -_curDistance, 1 << 8))
             {
                 if (hit.collider.gameObject != SrcCamera.gameObject)
                 {

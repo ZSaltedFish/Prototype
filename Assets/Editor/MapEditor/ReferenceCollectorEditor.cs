@@ -12,6 +12,7 @@ namespace GameEditor
     [CustomEditor(typeof(ReferenceCollector))]
     public class ReferenceCollectorEditor : Editor
     {
+        private const string KEY_WORLD = "索引字典";
         private ReferenceCollector _target;
         private string _key = string.Empty;
 
@@ -23,68 +24,55 @@ namespace GameEditor
 
         public override void OnInspectorGUI()
         {
-            _target.RefList = EditorDictionaryField("索引字典", _target.RefList, ref _key);
+            EditorDictionaryField();
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(_target);
             }
         }
 
-        public static List<ReferenceCollector.StringObjectPair> EditorDictionaryField(string desc, List<ReferenceCollector.StringObjectPair> dict, ref string controlKey)
+        public void EditorDictionaryField()
         {
-            if (dict == null)
-            {
-                dict = new List<ReferenceCollector.StringObjectPair>();
-            }
-
-            int deleteIndex = -1;
-            int count = 0;
             using (new EditorVerticalLayout(EditorStyles.helpBox))
             {
-                EditorGUILayout.LabelField(desc);
-                foreach (var item in dict)
+                EditorGUILayout.LabelField(KEY_WORLD);
+                List<string> keys = _target.Keys;
+                foreach (var item in keys)
                 {
                     using (new EditorHorizontalLayout("Button"))
                     {
-                        item.Key = EditorGUILayout.TextField(item.Key);
-                        Object value = item.Value;
+                        EditorGUILayout.TextField(item);
+                        Object value = _target[item];
                         value = EditorDataFields.EditorDataField(value);
-                        item.Value = value;
+                        _target[item] = value;
 
                         if (GUILayout.Button("x"))
                         {
-                            deleteIndex = count;
+                            _target.Remove(item);
                         }
-                        ++count;
                     }
-                }
-
-                if (deleteIndex != -1)
-                {
-                    dict.RemoveAt(deleteIndex);
                 }
 
                 using (new EditorVerticalLayout(EditorStyles.helpBox))
                 {
                     using (new EditorHorizontalLayout("Button"))
                     {
-                        controlKey = EditorDataFields.EditorDataField(controlKey);
+                        _key = EditorDataFields.EditorDataField(_key);
                         try
                         {
                             if (GUILayout.Button("Create"))
                             {
-                                dict.Add(new ReferenceCollector.StringObjectPair(controlKey));
+                                _target.Add(_key, null);
                             }
                         }
                         catch (Exception err)
                         {
-                            Debug.LogError($"对Key({controlKey})的操作失败\t{err}");
+                            Debug.LogError($"对Key({_key})的操作失败\t{err}");
                         }
                     }
                 }
             }
-            DragAreaGetObject.GetDrawData(dict);
-            return dict;
+            DragAreaGetObject.GetDrawData(_target);
         }
     }
 }

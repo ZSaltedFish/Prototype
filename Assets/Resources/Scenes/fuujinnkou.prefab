@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 705003309349797185}
   - component: {fileID: 8370256246814540234}
   - component: {fileID: 3639537816284717496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: fuujinnkou
   m_TagString: Untagged
   m_Icon: {fileID: 0}

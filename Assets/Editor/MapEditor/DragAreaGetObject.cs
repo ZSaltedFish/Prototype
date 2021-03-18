@@ -1,5 +1,4 @@
 ﻿using GameToolComponents;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace GameEditor
 {
     public class DragAreaGetObject : Editor
     {
-        public static void GetDrawData(List<ReferenceCollector.StringObjectPair> dict,
+        public static void GetDrawData(ReferenceCollector dict,
             string name = "Drag Object here from Project view to get the object")
         {
             GUIContent title = new GUIContent(name);
@@ -32,11 +31,7 @@ namespace GameEditor
                         {
                             if (item != null)
                             {
-                                var data = new ReferenceCollector.StringObjectPair(item.name)
-                                {
-                                    Value = item
-                                };
-                                dict.Add(data);
+                                dict.Add(item.name, item);
                             }
                         }
                     }
